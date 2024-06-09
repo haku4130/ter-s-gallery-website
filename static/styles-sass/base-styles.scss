@@ -82,6 +82,10 @@ header {
   justify-content: space-between;
   margin-right: $default-side-spacing * 3;
   margin-left: $default-side-spacing * 3;
+  @media screen and (width < 500px) {
+    margin-right: $default-side-spacing * 2;
+    margin-left: $default-side-spacing * 2;
+  }
   height: $header-height;
 }
 
@@ -115,6 +119,9 @@ main {
   @include center();
   .gallery {
     margin: 0 $default-side-spacing;
+    @media screen and (width < 500px) {
+      margin: 0 $default-side-spacing / 2;
+    }
     max-width: 1400px;
     columns: 3;
     column-gap: 20px;
@@ -126,7 +133,6 @@ main {
       margin-bottom: 20px;
       break-inside: avoid;
       img {
-        image-rendering: optimizeQuality;
         width: 100%;
         max-width: 100%;
         transition: scale 0.5s ease;
@@ -142,35 +148,80 @@ main {
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
-  top: 0;
+  z-index: -1;
+  top: $header-height;
   right: 0;
   background-color: white;
   overflow-x: hidden;
   transition: 0.5s;
+  border-top: #e2e2e2 solid 1px;
 }
 
 .sidenav a {
-  padding: 0 8px 16px 32px;
+  display: table;
+  margin-left: $default-side-spacing * 3;
+  margin-top: 2rem;
+  font-size: 1.3rem;
   text-decoration: none;
   color: #818181;
-  display: block;
-  transition: 0.3s;
+  transition: opacity 0.5s ease;
 }
 
 .sidenav a:hover {
-  color: #f1f1f1;
+  opacity: 50%;
 }
 
-.sidenav .closebtn {
-  padding-bottom: 0;
-
-  height: $header-height;
-  @include center($horizontal: start);
-}
-
-#openNavBtn {
+.hamburger {
   @media screen and (width > 1200px) {
     display: none;
   }
+  transition: opacity 0.5s ease;
+}
+
+.hamburger:hover {
+  opacity: 60%;
+}
+
+.hamburger path {
+  stroke: currentcolor;
+  transition: all 0.4s;
+  stroke-width: 1.8;
+  transform: rotate(0) scaleX(1);
+  transform-origin: center;
+  opacity: 1;
+}
+
+.sideMenuOpen .hamburger .p1 {
+  transform: rotate(-45deg) translate(5px, 7.5px);
+}
+
+.sideMenuOpen .hamburger .p2 {
+  transform: rotate(0) scaleY(0);
+}
+
+.sideMenuOpen .hamburger .p3 {
+  transform: rotate(45deg) translate(-5px, -7.5px);
+}
+
+//
+//
+
+swiper-container {
+  width: 50%;
+  height: auto;
+  max-height: 500px;
+  margin: 0 auto;
+}
+
+swiper-slide {
+  @include center;
+}
+
+swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-left: white solid 1px;
+  border-right: white solid 1px;
 }

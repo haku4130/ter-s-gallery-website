@@ -1,24 +1,26 @@
+let isSideMenuOpen = false;
+
 function openNav() {
     document.getElementById('mySidenav').style.width = '100%';
-    console.log('open');
+    isSideMenuOpen = true;
+    document.querySelector('.header-inside').classList.add('sideMenuOpen');
 }
 
 function closeNav() {
     document.getElementById('mySidenav').style.width = '0';
+    isSideMenuOpen = false;
+    document.querySelector('.header-inside').classList.remove('sideMenuOpen');
 }
 
-document.getElementById('openNavBtn').addEventListener('click', openNav);
-document
-    .querySelector('.sidenav .closebtn')
-    .addEventListener('click', closeNav);
-
-document.addEventListener('click', (event) => {
-    const sidebar = document.getElementById('mySidenav');
-    const openNavBtn = document.getElementById('openNavBtn');
-    if (!sidebar.contains(event.target) && !openNavBtn.contains(event.target)) {
+function toggleNav() {
+    if (isSideMenuOpen) {
         closeNav();
+    } else {
+        openNav();
     }
-});
+}
+
+document.querySelector('.hamburger').addEventListener('click', toggleNav);
 
 document.addEventListener('DOMContentLoaded', () => {
     const cursor = document.createElement('div');
@@ -27,14 +29,17 @@ document.addEventListener('DOMContentLoaded', () => {
     cursor.classList.add('custom-cursor');
     document.body.appendChild(cursor);
 
+    function updateCursorPosition(e) {
+        requestAnimationFrame(() => {
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+        });
+    }
+
     document.addEventListener('mousemove', (e) => {
-        cursor.style.left = `${e.clientX}px`;
-        cursor.style.top = `${e.clientY}px`;
-
+        updateCursorPosition(e);
         cursor.classList.remove('hidden');
-
         clearTimeout(timer);
-
         timer = setTimeout(() => {
             cursor.classList.add('hidden');
         }, 1000);

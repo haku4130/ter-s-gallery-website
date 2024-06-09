@@ -1,2 +1,3 @@
-/static/*.jpg
 /static/styles
+public/
+.sass-cache
