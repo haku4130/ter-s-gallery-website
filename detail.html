@@ -43,47 +43,47 @@
     </header>
 
     <main>
-      <swiper-container class="swiper">
+      <swiper-container class="swiper" init="false">
         <swiper-slide>
           <img
-            src="/static/public/1c125cef9eb37d28ba7326ec6dba49b4.jpg"
+            src="static/public/00d72329a4d6de38b2a9187911be60c0.jpg"
             alt="Item 1"
           />
         </swiper-slide>
         <swiper-slide>
           <img
-            src="/static/public/5e528ceaad3de7bbaf9825f8eb16d09e.jpg"
-            alt="Item 1"
+            src="static/public/3feb31ca37f0248f593f4735e02b447b.jpg"
+            alt="Item 2"
           />
         </swiper-slide>
         <swiper-slide>
           <img
-            src="/static/public/88dcb04b47a8dc7634af39eb9e5f50c5.jpg"
-            alt="Item 1"
+            src="static/public/8a74356cc55e3ab296a5d321fb2442e6.jpg"
+            alt="Item 3"
           />
         </swiper-slide>
         <swiper-slide>
           <img
-            src="/static/public/9190bb22ffd570df7b36e05c1111bc8c.jpg"
-            alt="Item 1"
+            src="static/public/28db71495a0da46a119cc2b7814256a5.jpg"
+            alt="Item 4"
           />
         </swiper-slide>
         <swiper-slide>
           <img
-            src="/static/public/bf641b4e6831ad27f8564e921b1e4a2c.jpg"
-            alt="Item 1"
+            src="static/public/ad343c0db6d4d0525c8c6e6ba10d46a2.jpg"
+            alt="Item 5"
           />
         </swiper-slide>
         <swiper-slide>
           <img
-            src="/static/public/de812c61b81258594354db061cfa19ee.jpg"
-            alt="Item 1"
+            src="static/public/d0b65ee09900b033b131f95ace498c49.jpg"
+            alt="Item 6"
           />
         </swiper-slide>
         <swiper-slide>
           <img
-            src="/static/public/1c125cef9eb37d28ba7326ec6dba49b4.jpg"
-            alt="Item 1"
+            src="static/public/d77beabd374ccd1696f9c705933dc146.jpg"
+            alt="Item 7"
           />
         </swiper-slide>
       </swiper-container>
@@ -91,5 +91,29 @@
     <footer></footer>
     <script src="/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+    <script>
+      const swiperEl = document.querySelector('swiper-container');
+
+      const params = {
+        injectStyles: [
+          `
+            .swiper-pagination-bullet {
+              margin-top: 20px !important;
+              cursor: none !important;
+            }
+            `,
+        ],
+        swiper: {
+          loop: true,
+        },
+        pagination: {
+          clickable: true,
+        },
+      };
+
+      Object.assign(swiperEl, params);
+
+      swiperEl.initialize();
+    </script>
   </body>
 </html>

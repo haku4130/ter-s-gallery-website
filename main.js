@@ -1,13 +1,15 @@
 let isSideMenuOpen = false;
 
 function openNav() {
-    document.getElementById('mySidenav').style.width = '100%';
+    document.getElementById('mySidenav').style.width = '30%';
+    document.querySelector('.sidenav').classList.remove('sidenav-opacity');
     isSideMenuOpen = true;
     document.querySelector('.header-inside').classList.add('sideMenuOpen');
 }
 
 function closeNav() {
     document.getElementById('mySidenav').style.width = '0';
+    document.querySelector('.sidenav').classList.add('sidenav-opacity');
     isSideMenuOpen = false;
     document.querySelector('.header-inside').classList.remove('sideMenuOpen');
 }
@@ -36,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    document.addEventListener('mousemove', (e) => {
+    document.addEventListener('pointermove', (e) => {
         updateCursorPosition(e);
         cursor.classList.remove('hidden');
         clearTimeout(timer);
@@ -62,4 +64,21 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
         });
     });
+
+    // projects
+    let dropbtns = document.querySelectorAll('.dropbtn');
+
+    // dropbtns.forEach(function (btn) {
+    //     btn.addEventListener('click', function () {
+    //         let dropdownContent = btn.nextElementSibling;
+
+    //         dropdownContent.classList.toggle('visible');
+    //         document
+    //             .querySelectorAll('.dropdown-content.visible')
+    //             .forEach(function (content) {
+    //                 if (content !== dropdownContent)
+    //                     content.classList.remove('visible');
+    //             });
+    //     });
+    // });
 });
