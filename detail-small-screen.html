@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/styles/base-styles.css" />
+
+    <title>ter`s gallery</title>
+  </head>
+  <body>
+    <header>
+      <div class="header-inside">
+        <div class="logo cursor-link"><span>ter's</span> gallery</div>
+        <nav>
+          <ul>
+            <li><a>ПРОДУКТЫ</a></li>
+            <li><a>О НАС</a></li>
+            <li><a>ПРОЕКТЫ</a></li>
+            <li><a>КОНТАКТЫ</a></li>
+          </ul>
+        </nav>
+        <div id="mySidenav" class="sidenav">
+          <a href="#">ПРОДУКТЫ</a>
+          <a href="#">О НАС</a>
+          <a href="#">ПРОЕКТЫ</a>
+          <a href="#">КОНТАКТЫ</a>
+        </div>
+        <svg
+          class="hamburger cursor-link"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          fill="none"
+          viewBox="0 0 25 25"
+        >
+          <path d="M-10,5 L25,5" class="p1"></path>
+          <path d="M-10,12.5 L25,12.5" class="p2"></path>
+          <path d="M-10,20 L35,20" class="p3"></path>
+        </svg>
+      </div>
+    </header>
+
+    <main>
+      <swiper-container class="swiper" init="false">
+        <swiper-slide>
+          <img
+            src="static/public/00d72329a4d6de38b2a9187911be60c0.jpg"
+            alt="Item 1"
+          />
+        </swiper-slide>
+        <swiper-slide>
+          <img
+            src="static/public/3feb31ca37f0248f593f4735e02b447b.jpg"
+            alt="Item 2"
+          />
+        </swiper-slide>
+        <swiper-slide>
+          <img
+            src="static/public/8a74356cc55e3ab296a5d321fb2442e6.jpg"
+            alt="Item 3"
+          />
+        </swiper-slide>
+        <swiper-slide>
+          <img
+            src="static/public/28db71495a0da46a119cc2b7814256a5.jpg"
+            alt="Item 4"
+          />
+        </swiper-slide>
+        <swiper-slide>
+          <img
+            src="static/public/ad343c0db6d4d0525c8c6e6ba10d46a2.jpg"
+            alt="Item 5"
+          />
+        </swiper-slide>
+        <swiper-slide>
+          <img
+            src="static/public/d0b65ee09900b033b131f95ace498c49.jpg"
+            alt="Item 6"
+          />
+        </swiper-slide>
+        <swiper-slide>
+          <img
+            src="static/public/d77beabd374ccd1696f9c705933dc146.jpg"
+            alt="Item 7"
+          />
+        </swiper-slide>
+      </swiper-container>
+    </main>
+    <footer></footer>
+    <script src="/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+    <script>
+      const swiperEl = document.querySelector('swiper-container');
+
+      const params = {
+        injectStyles: [
+          `
+            .swiper-pagination-bullet {
+              margin-top: 20px !important;
+              cursor: none !important;
+            }
+            `,
+        ],
+        swiper: {
+          loop: true,
+        },
+        pagination: {
+          clickable: true,
+        },
+      };
+
+      Object.assign(swiperEl, params);
+
+      swiperEl.initialize();
+    </script>
+  </body>
+</html>

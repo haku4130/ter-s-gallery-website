@@ -1,0 +1,119 @@
+@import 'base-styles';
+
+main {
+  .main-collection {
+    position: fixed;
+    top: $header-height;
+    left: 0;
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    height: calc(100vh - $header-height);
+    z-index: -10;
+
+    img {
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      object-fit: cover;
+    }
+  }
+
+  .main-content {
+    position: absolute;
+    top: 100vh;
+    background-color: white;
+    padding: 0 $default-side-spacing * 3;
+    padding-bottom: $header-height;
+    @media screen and (width < 1000px) {
+      padding: 0 calc($default-side-spacing / 2);
+    }
+
+    .main-collection-info {
+      width: 100%;
+      height: $header-height;
+      @include center($horizontal: space-between);
+      padding-top: 20px;
+
+      .left-side {
+        height: 50px;
+      }
+
+      .main-collection-info-header {
+        font-weight: 600;
+        margin-bottom: 3px;
+      }
+
+      .main-collection-info-description {
+        opacity: 70%;
+      }
+
+      .all-products-button {
+        @include center;
+        font-weight: 400;
+        border: #8f8f8f 1px solid;
+        height: 50px;
+        padding: 0 15px;
+        background-color: white;
+        color: black;
+        transition: background-color 0.5s ease, color 0.5s ease,
+          font-weight 0.5s ease;
+        &:hover {
+          background-color: #414141;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .gallery {
+    width: 100%;
+    max-width: 100%;
+    columns: 3;
+    column-gap: 20px;
+    @media screen and (max-width: 1200px) {
+      columns: 2;
+    }
+
+    .gallery-item {
+      position: relative;
+      width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+      break-inside: avoid;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        max-width: 100%;
+        object-fit: cover;
+        transition: scale 0.5s ease;
+
+        &:hover,
+        .gallery-item-info:hover .gallery-item {
+          scale: 110%;
+        }
+      }
+
+      .gallery-item-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        color: white;
+        margin: 5%;
+
+        .name {
+          font-size: 1.5rem;
+          font-weight: 500;
+          text-transform: uppercase;
+        }
+
+        .categoty {
+          opacity: 80%;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}

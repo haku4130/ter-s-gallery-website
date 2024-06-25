@@ -1,0 +1,123 @@
+@import 'base-styles';
+
+.filters {
+  position: relative;
+  top: $header-height;
+  left: 0;
+  @include center();
+}
+
+.filter-container {
+  @include center();
+  width: 100%;
+  border-top: #e2e2e2 1px solid;
+  border-bottom: #e2e2e2 1px solid;
+  height: calc($header-height / 2);
+}
+
+.filter-item {
+  position: relative;
+  display: inline-block;
+  border-left: #88888875 1px solid;
+  padding: 0 0 0 $default-side-spacing;
+}
+
+.filter-icon {
+  font-size: 0.8rem;
+  padding: 0 $default-side-spacing 0 0;
+}
+
+.filter-svg {
+  margin-right: 10px;
+  margin-left: calc(2rem - 12px);
+}
+
+.filter-item,
+.filter-icon {
+  height: calc($header-height / 3);
+  @include center();
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+}
+
+.dropdown-content.visible {
+  display: block;
+}
+
+.dropbtn {
+  border: none;
+  background-color: inherit;
+  font-size: 0.8rem;
+  @include center();
+}
+
+.dropbtn-svg {
+  margin: 0 calc($default-side-spacing - 24px / 2);
+}
+
+.main-products {
+  width: 100%;
+  @include center();
+  position: absolute;
+  top: $header-height * 1.5;
+  left: 0;
+  padding: $header-height * 0.5 $default-side-spacing * 3;
+  @media screen and (width < 1000px) {
+    padding: $header-height * 0.5 calc($default-side-spacing / 2);
+  }
+  max-width: 100%;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  @media screen and (width < 1200px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media screen and (width < 700px) {
+    grid-template-columns: 1fr;
+  }
+  gap: $default-side-spacing;
+}
+
+.product-container {
+  overflow: hidden;
+  img {
+    aspect-ratio: 1.3 / 1;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+.product-info {
+  @include center(center, space-between);
+  flex-direction: column;
+}
+
+.product-description {
+  padding-top: calc($default-side-spacing / 2);
+
+  .product-title {
+    font-weight: 600;
+    opacity: 0.5;
+    @include center();
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding-top: calc($default-side-spacing / 6);
+  }
+
+  .product-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+  }
+}
+
+.product-price {
+  font-weight: 600;
+  padding-top: calc($default-side-spacing / 2);
+}
