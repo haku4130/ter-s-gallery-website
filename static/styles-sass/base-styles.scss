@@ -233,6 +233,11 @@ swiper-slide img {
   object-fit: contain;
 }
 
-// projects
+// footer
 
-// detail
+footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  height: $header-height;
+}
