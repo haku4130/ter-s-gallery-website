@@ -1,38 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-$default-side-spacing: 2rem;
-$header-height: 8rem;
-
-@mixin center($vertical: center, $horizontal: center) {
-  display: flex;
-  align-items: $vertical;
-  justify-content: $horizontal;
-}
+@import 'variables-mixins';
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
-    border-radius: 6px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border: 2px solid #f1f1f1;
-    border-radius: 6px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #777;
-  }
-
   cursor: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border: 2px solid #f1f1f1;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #777;
 }
 
 body {
@@ -67,6 +57,8 @@ body {
 img {
   display: block;
   object-position: 50% 50%;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 a {
@@ -74,22 +66,14 @@ a {
   color: inherit;
 }
 
-// button {
-//   background: none;
-//   border: none;
-//   padding: 0;
-//   margin: 0;
-//   font: inherit;
-//   color: inherit;
-//   text-align: inherit;
-//   text-decoration: none;
-//   cursor: pointer;
-//   outline: none;
-//   box-shadow: none;
-//   -webkit-appearance: none;
-//   -moz-appearance: none;
-//   appearance: none;
-// }
+p {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  color: inherit;
+}
 
 header {
   z-index: 1000;
@@ -145,41 +129,39 @@ nav {
 .sidenav {
   height: 100%;
   width: 0;
-  min-width: 325px;
   position: fixed;
   z-index: -1;
   top: $header-height;
   left: 0;
   background-color: white;
   overflow-x: hidden;
-  transition: 0.5s;
-  border-top: #e2e2e2 solid 1px;
-  opacity: 100%;
+  transition: all 0.5s ease-out;
+  border-top: $default-line-color solid 1px;
+  opacity: 0;
 
   @media screen and (width > 1200px) {
     display: none;
   }
 }
 
-.sidenav-opacity {
-  opacity: 0%;
+.sidenav-shown-styles {
+  opacity: 1;
+  width: 100%;
 }
 
 .sidenav a {
   display: flex;
   margin-left: $default-side-spacing * 3;
   @media screen and (width < 1000px) {
-    margin-left: $default-side-spacing * 2;
+    margin-left: calc($default-side-spacing / 2);
   }
   margin-top: 2rem;
-  font-size: 1.3rem;
-  text-decoration: none;
-  color: #818181;
+  opacity: 0.5;
   transition: opacity 0.5s ease;
 }
 
 .sidenav a:hover {
-  opacity: 50%;
+  opacity: 1;
 }
 
 .hamburger {
@@ -214,30 +196,92 @@ nav {
   transform: rotate(45deg) translate(-5px, -7.5px);
 }
 
-swiper-container {
-  height: 100vh;
-  max-width: 100%;
-  max-height: 500px;
-  margin: 0 auto;
-  --swiper-theme-color: black;
+main {
+  display: flex;
+  justify-content: center;
+  margin-top: $header-height;
 }
-
-swiper-slide {
-  @include center;
-}
-
-swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-// footer
 
 footer {
-  position: relative;
-  left: 0;
-  bottom: 0;
-  height: $header-height;
+  @include center($vertical: start);
+  background-color: white;
+  border-top: $default-line-color 1px solid;
+  flex-direction: column;
+  width: 100%;
+  padding: 4rem $default-side-spacing * 3 0 $default-side-spacing * 3;
+  @media screen and (width < 1000px) {
+    padding: 4rem calc($default-side-spacing / 2) 0
+      calc($default-side-spacing / 2);
+  }
+}
+
+.footer-inside {
+  display: flex;
+  justify-content: space-between;
+  @media screen and (width < 600px) {
+    flex-direction: column;
+    gap: 4rem;
+  }
+  width: 100%;
+}
+
+.footer-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  @media screen and (width < 600px) {
+    align-items: center;
+  }
+
+  p {
+    opacity: 50%;
+    transition: opacity 0.5s ease;
+    &:hover {
+      @extend .nav-link-active;
+    }
+  }
+  svg {
+    opacity: 0.7;
+    transition: 0.5s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    @media screen and (width < 600px) {
+      margin: 0.5rem;
+    }
+  }
+  h1 {
+    font-size: 1.2rem;
+    font-weight: 350;
+  }
+}
+
+.footer-social-network-container {
+  h1 {
+    @include center($horizontal: end);
+  }
+  .footer-social-network {
+    @include center($horizontal: space-between);
+  }
+}
+
+.footer-bottom {
+  padding-top: 10rem;
+  padding-bottom: 1rem;
+  width: 100%;
+
+  span,
+  a {
+    opacity: 0.5;
+    font-weight: 500;
+  }
+  a {
+    text-decoration: underline;
+    transition: opacity 0.5s ease;
+  }
+  a:hover {
+    opacity: 1;
+  }
 }

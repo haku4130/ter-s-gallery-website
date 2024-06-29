@@ -1,15 +1,17 @@
 let isSideMenuOpen = false;
 
 function openNav() {
-    document.getElementById('mySidenav').style.width = '30%';
-    document.querySelector('.sidenav').classList.remove('sidenav-opacity');
+    let sidenav = document.getElementById('mySidenav');
+    sidenav.classList.add('sidenav-shown-styles');
+
     isSideMenuOpen = true;
     document.querySelector('.header-inside').classList.add('sideMenuOpen');
 }
 
 function closeNav() {
-    document.getElementById('mySidenav').style.width = '0';
-    document.querySelector('.sidenav').classList.add('sidenav-opacity');
+    let sidenav = document.getElementById('mySidenav');
+    sidenav.classList.remove('sidenav-shown-styles');
+
     isSideMenuOpen = false;
     document.querySelector('.header-inside').classList.remove('sideMenuOpen');
 }
@@ -26,6 +28,7 @@ document.querySelector('.hamburger').addEventListener('click', toggleNav);
 
 document.addEventListener('DOMContentLoaded', () => {
     const cursor = document.createElement('div');
+    cursor.classList.remove('hidden');
     let timer;
 
     cursor.classList.add('custom-cursor');
@@ -40,11 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('pointermove', (e) => {
         updateCursorPosition(e);
+    });
+
+    document.addEventListener('mouseleave', () => {
+        cursor.classList.add('hidden');
+    });
+
+    document.addEventListener('mouseenter', () => {
         cursor.classList.remove('hidden');
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-            cursor.classList.add('hidden');
-        }, 1000);
     });
 
     const elements = document.querySelectorAll('a, .cursor-link');
@@ -58,27 +64,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const images = document.querySelectorAll('img');
-    images.forEach((img) => {
-        img.addEventListener('dragstart', function (e) {
-            e.preventDefault();
+    let dropbtns = document.querySelectorAll('.dropbtn');
+
+    dropbtns.forEach(function (btn) {
+        btn.addEventListener('click', function (event) {
+            event.stopPropagation();
+
+            let dropdownContent = btn.nextElementSibling;
+
+            dropdownContent.classList.toggle('visible');
+            document
+                .querySelectorAll('.dropdown-content.visible')
+                .forEach(function (content) {
+                    if (content !== dropdownContent)
+                        content.classList.remove('visible');
+                });
         });
     });
 
-    // projects
-    let dropbtns = document.querySelectorAll('.dropbtn');
-
-    // dropbtns.forEach(function (btn) {
-    //     btn.addEventListener('click', function () {
-    //         let dropdownContent = btn.nextElementSibling;
-
-    //         dropdownContent.classList.toggle('visible');
-    //         document
-    //             .querySelectorAll('.dropdown-content.visible')
-    //             .forEach(function (content) {
-    //                 if (content !== dropdownContent)
-    //                     content.classList.remove('visible');
-    //             });
-    //     });
-    // });
+    document.addEventListener('click', function (event) {
+        document
+            .querySelectorAll('.dropdown-content.visible')
+            .forEach(function (content) {
+                if (
+                    !content.contains(event.target) &&
+                    !content.previousElementSibling.contains(event.target)
+                ) {
+                    content.classList.remove('visible');
+                }
+            });
+    });
 });
