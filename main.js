@@ -1,4 +1,5 @@
 let isSideMenuOpen = false;
+let isTouchDevice = true;
 
 function openNav() {
     let sidenav = document.getElementById('mySidenav');
@@ -29,7 +30,6 @@ document.querySelector('.hamburger').addEventListener('click', toggleNav);
 document.addEventListener('DOMContentLoaded', () => {
     const cursor = document.createElement('div');
     cursor.classList.remove('hidden');
-    let timer;
 
     cursor.classList.add('custom-cursor');
     document.body.appendChild(cursor);
@@ -41,8 +41,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function detectTouchDevice() {
+        return (
+            'ontouchstart' in window ||
+            navigator.maxTouchPoints > 0 ||
+            navigator.msMaxTouchPoints > 0
+        );
+    }
+
+    isTouchDevice = detectTouchDevice();
+
     document.addEventListener('pointermove', (e) => {
-        updateCursorPosition(e);
+        if (!isTouchDevice) {
+            updateCursorPosition(e);
+        }
     });
 
     document.addEventListener('mouseleave', () => {
@@ -64,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    let dropbtns = document.querySelectorAll('.dropbtn');
+    const dropbtns = document.querySelectorAll('.dropbtn');
 
     dropbtns.forEach(function (btn) {
         btn.addEventListener('click', function (event) {
@@ -82,10 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.addEventListener('click', function (event) {
+    document.addEventListener('click', (event) => {
         document
             .querySelectorAll('.dropdown-content.visible')
-            .forEach(function (content) {
+            .forEach((content) => {
                 if (
                     !content.contains(event.target) &&
                     !content.previousElementSibling.contains(event.target)
@@ -93,5 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     content.classList.remove('visible');
                 }
             });
+    });
+
+    document.querySelector('.filter-icon').addEventListener('click', () => {
+        document.querySelectorAll('.filter-item').forEach((content) => {
+            content.classList.toggle('hidden');
+        });
     });
 });

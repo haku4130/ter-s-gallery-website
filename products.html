@@ -47,10 +47,11 @@
     </header>
 
     <main>
-      <div class="main-container">
+      <div id="app" class="main-container">
+        <h1>{{ message }}</h1>
         <div class="filters">
           <div class="filter-container">
-            <div class="filter-icon">ФИЛЬТРЫ</div>
+            <div class="filter-icon cursor-link">ФИЛЬТРЫ</div>
             <div class="filter-item">
               <button class="dropbtn cursor-link">КАТЕГОРИИ</button>
               <div class="dropdown-content">
@@ -222,4 +223,5 @@
     </footer>
   </body>
   <script src="/main.js"></script>
+  <script type="module" src="/product-page-app.js"></script>
 </html>
