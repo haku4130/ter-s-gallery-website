@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     });
 
-    document.querySelector('.filter-icon').addEventListener('click', () => {
+    document.querySelector('.filter-icon')?.addEventListener('click', () => {
         document.querySelectorAll('.filter-item').forEach((content) => {
             content.classList.toggle('hidden');
         });

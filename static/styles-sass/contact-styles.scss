@@ -1,0 +1,59 @@
+@import 'variables-mixins';
+
+.main-container {
+  margin: 0 $default-side-spacing * 3;
+  margin-bottom: calc($header-height / 2);
+  @media screen and (width < 1000px) {
+    margin: 0 calc($default-side-spacing / 2);
+    margin-bottom: calc($header-height / 2);
+  }
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  gap: $default-side-spacing * 1.5;
+
+  width: 100%;
+}
+
+.contact-image {
+  img {
+    width: 100%;
+    height: 75vh;
+    object-fit: cover;
+  }
+}
+
+.contact-text > div {
+  margin-bottom: 0.5rem;
+}
+
+$contact-elem-margin-bottom: 3rem;
+
+.contact-title {
+  margin-bottom: $contact-elem-margin-bottom / 2 !important;
+  line-height: 0.9;
+}
+
+.contact-firstly-font-weight {
+  font-weight: 550;
+}
+
+.contact-secondary-opacity {
+  opacity: 0.8;
+}
+
+.company-address-country {
+  margin-bottom: $contact-elem-margin-bottom !important;
+}
+
+.company-tel {
+  margin-bottom: 3 * $contact-elem-margin-bottom !important;
+}
+
+.company-open-time .hours {
+  margin-left: 47px;
+}
+
+.addresses {
+  display: flex;
+  justify-content: space-around;
+}

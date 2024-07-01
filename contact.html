@@ -5,24 +5,27 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/static/styles/base-styles.css" />
-    <link rel="stylesheet" href="/static/styles/detail-styles.css" />
-
+    <link rel="stylesheet" href="/static/styles/contact-styles.css" />
     <title>ter`s gallery</title>
   </head>
   <body>
     <header>
       <div class="header-inside">
-        <div class="logo cursor-link"><span>ter's</span> gallery</div>
+        <div class="logo cursor-link">
+          <a href="/index.html"><span>ter's</span> gallery</a>
+        </div>
         <nav>
           <ul>
-            <li><a>ПРОДУКТЫ</a></li>
+            <li class="nav-link-active">
+              <a href="/products.html">ПРОДУКТЫ</a>
+            </li>
             <li><a>О НАС</a></li>
             <li><a>ПРОЕКТЫ</a></li>
             <li><a>КОНТАКТЫ</a></li>
           </ul>
         </nav>
-        <div id="mySidenav" class="sidenav">
-          <a href="#">ПРОДУКТЫ</a>
+        <div id="mySidenav" class="sidenav sidenav-opacity">
+          <a href="/products.html">ПРОДУКТЫ</a>
           <a href="#">О НАС</a>
           <a href="#">ПРОЕКТЫ</a>
           <a href="#">КОНТАКТЫ</a>
@@ -44,50 +47,43 @@
     </header>
 
     <main>
-      <swiper-container class="swiper" init="false">
-        <swiper-slide>
-          <img
-            src="static/public/00d72329a4d6de38b2a9187911be60c0.jpg"
-            alt="Item 1"
-          />
-        </swiper-slide>
-        <swiper-slide>
-          <img
-            src="static/public/3feb31ca37f0248f593f4735e02b447b.jpg"
-            alt="Item 2"
-          />
-        </swiper-slide>
-        <swiper-slide>
-          <img
-            src="static/public/8a74356cc55e3ab296a5d321fb2442e6.jpg"
-            alt="Item 3"
-          />
-        </swiper-slide>
-        <swiper-slide>
-          <img
-            src="static/public/28db71495a0da46a119cc2b7814256a5.jpg"
-            alt="Item 4"
-          />
-        </swiper-slide>
-        <swiper-slide>
-          <img
-            src="static/public/ad343c0db6d4d0525c8c6e6ba10d46a2.jpg"
-            alt="Item 5"
-          />
-        </swiper-slide>
-        <swiper-slide>
-          <img
-            src="static/public/d0b65ee09900b033b131f95ace498c49.jpg"
-            alt="Item 6"
-          />
-        </swiper-slide>
-        <swiper-slide>
-          <img
-            src="static/public/d77beabd374ccd1696f9c705933dc146.jpg"
-            alt="Item 7"
-          />
-        </swiper-slide>
-      </swiper-container>
+      <div class="main-container">
+        <div class="contact-image">
+          <img src="/static/public/contact.jpg" alt="Contact img" />
+        </div>
+        <div class="contact-text">
+          <div class="contact-title contact-firstly-font-weight">КОНТАКТЫ</div>
+          <div class="company-title contact-firstly-font-weight">
+            ter's gallery
+          </div>
+          <div class="company-address-street contact-secondary-opacity">
+            Сентябрьская 12
+          </div>
+          <div class="company-address-town contact-secondary-opacity">
+            Апрелевка
+          </div>
+          <div class="company-address-country contact-secondary-opacity">
+            Россия
+          </div>
+          <div class="company-email">
+            <span class="contact-firstly-font-weight">e-mail</span>
+            <span class="contact-secondary-opacity">info@tersgallery.com</span>
+          </div>
+          <div class="company-tel">
+            <span class="contact-firstly-font-weight">tel</span>
+            <span class="contact-secondary-opacity">+7 (929) 969-66-99</span>
+          </div>
+          <div class="company-open-time">
+            <span class="days contact-secondary-opacity">ПН | ПТ</span>
+            <span class="hours contact-firstly-font-weight">11:00 - 19:00</span>
+          </div>
+        </div>
+      </div>
+      <div class="addresses">
+        <div class="address">адрес 1</div>
+        <div class="address">адрес 2</div>
+        <div class="address">адрес 3</div>
+      </div>
     </main>
     <footer>
       <div class="footer-inside">
@@ -148,31 +144,6 @@
         <a href="https://t.me/and_less" target="_blank">Осипов Андрей</a>
       </div>
     </footer>
-    <script src="/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
-    <script>
-      const swiperEl = document.querySelector('swiper-container');
-
-      const params = {
-        injectStyles: [
-          `
-            .swiper-pagination-bullet {
-              margin-top: 20px !important;
-              cursor: none !important;
-            }
-            `,
-        ],
-        swiper: {
-          loop: true,
-        },
-        pagination: {
-          clickable: true,
-        },
-      };
-
-      Object.assign(swiperEl, params);
-
-      swiperEl.initialize();
-    </script>
   </body>
+  <script src="/main.js"></script>
 </html>
