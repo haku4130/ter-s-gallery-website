@@ -1,5 +1,9 @@
 @import 'variables-mixins';
 
+.main-container {
+  width: 100%;
+}
+
 .filter-container {
   @include center();
   width: 100%;
@@ -11,12 +15,15 @@
 .filter-item {
   border-left: $default-line-color 1px solid;
   position: relative;
+  @include center;
+  transition: height 0.3s ease-out;
 }
 
 .filter-icon {
   font-size: 0.8rem;
   padding-right: $default-side-spacing;
   position: relative;
+  @include center();
 }
 
 .filter-icon::before {
@@ -27,7 +34,6 @@
 .filter-item,
 .filter-icon {
   height: calc($header-height / 3);
-  @include center();
 }
 
 .dropbtn {
@@ -38,6 +44,7 @@
   @include center();
   position: relative;
   padding-left: $default-side-spacing;
+  overflow: hidden;
 }
 
 .dropbtn::after {
@@ -50,15 +57,13 @@
   position: absolute;
   top: 125%;
   left: 0;
-  // background-color: rgb(250, 250, 250);
   background-color: white;
-  width: 100%;
+  min-width: 100%;
   border: 1px solid $default-line-color;
   z-index: 100;
 
   a {
-    display: block;
-    padding: 1rem;
+    @include center($horizontal: space-between);
     transition: background-color 0.3s linear;
 
     &:hover {
@@ -67,12 +72,43 @@
   }
 }
 
+label {
+  width: 100%;
+  padding: 1rem;
+}
+
+input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  flex-wrap: wrap;
+  @include center;
+  width: 1.8rem;
+  height: 1.5rem;
+  padding-right: 1rem;
+}
+
+input[type='checkbox']::before {
+  content: '';
+  width: 0.3rem;
+  height: 0.3rem;
+  clip-path: circle(50% at 50% 50%);
+  transform: scale(0);
+  background-color: black;
+  transition: transform 0.2s;
+}
+
+input[type='checkbox']:checked::before {
+  transform: scale(1);
+}
+
 .dropdown-content.visible {
   display: block;
 }
 
 .hidden {
-  display: none;
+  @media screen and (width < 1000px) {
+    height: 0;
+  }
 }
 
 // mobile devices filters
@@ -152,6 +188,7 @@
     font-weight: 600;
     font-size: 1.1rem;
     text-transform: uppercase;
+    text-align: center;
   }
 }
 

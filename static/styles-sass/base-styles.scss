@@ -26,7 +26,8 @@
   background-color: #777;
 }
 
-body {
+body,
+button {
   font-family: 'Inter', Arial, sans-serif;
 }
 
@@ -84,6 +85,9 @@ header {
   top: 0;
   left: 0;
   background-color: white;
+}
+
+header.with-bottom-border {
   border-bottom: $default-line-color 1px solid;
 }
 

@@ -51,110 +51,90 @@
         <div class="filters">
           <div class="filter-container">
             <div class="filter-icon cursor-link">ФИЛЬТРЫ</div>
+
             <div class="filter-item hidden">
               <button class="dropbtn cursor-link">КАТЕГОРИИ</button>
               <div class="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+                <a v-for="category in categories" :key="category.id">
+                  <label :for="category.name">{{ category.name }}</label>
+                  <input
+                    type="checkbox"
+                    :id="category.name"
+                    :value="category.name"
+                    v-model="selectedCategories"
+                  />
+                </a>
               </div>
             </div>
+
             <div class="filter-item hidden">
               <button class="dropbtn cursor-link">МАТЕРИАЛЫ</button>
               <div class="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+                <a v-for="material in materials" :key="material.id">
+                  <label :for="material.name">{{ material.name }}</label>
+                  <input
+                    type="checkbox"
+                    :id="material.name"
+                    :value="material.name"
+                    v-model="selectedMaterials"
+                  />
+                </a>
               </div>
             </div>
+
             <div class="filter-item hidden">
               <button class="dropbtn cursor-link">ЦВЕТ</button>
               <div class="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+                <a v-for="color in colors" :key="color.id">
+                  <label :for="color.name">{{ color.name }}</label>
+                  <input
+                    type="checkbox"
+                    :id="color.name"
+                    :value="color.name"
+                    v-model="selectedColors"
+                  />
+                </a>
               </div>
             </div>
+
             <div class="filter-item hidden">
               <button class="dropbtn cursor-link">ЦЕНА</button>
               <div class="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+                <a v-for="price in priceRanges" :key="price.id">
+                  <label :for="price.range">{{ price.range }}</label>
+                  <input
+                    type="checkbox"
+                    :id="price.range"
+                    :value="price.range"
+                    v-model="selectedPrices"
+                  />
+                </a>
               </div>
             </div>
           </div>
         </div>
+        <div class="selected-filters-container">
+          <div class="selected-filters" v-for="selection in combinedSelections">
+            {{ selection }}
+          </div>
+          <div class="clear-filters" @click="clearFilters()">
+            ОЧИСТИТЬ ФИЛЬТРЫ
+          </div>
+        </div>
         <div class="main-products">
           <div class="main-grid">
-            <a class="product-container">
-              <img src="/static/public/11.jpg" />
+            <a
+              v-for="product in filteredProducts"
+              :key="product.image"
+              class="product-container"
+            >
+              <img :src="product.image" />
               <div class="product-info">
                 <div class="product-description">
-                  <div class="product-name">Monica</div>
-                  <div class="product-title">Комод</div>
+                  <div class="product-name">{{ product.name }}</div>
+                  <div class="product-title">{{ product.title }}</div>
                 </div>
-                <div class="product-price">$1,500</div>
-              </div>
-            </a>
-            <a class="product-container">
-              <img src="/static/public/12.jpg" />
-              <div class="product-info">
-                <div class="product-description">
-                  <div class="product-name">Monica</div>
-                  <div class="product-title">Комод</div>
-                </div>
-                <div class="product-price">$1,500</div>
-              </div>
-            </a>
-            <a class="product-container">
-              <img src="/static/public/13.jpg" />
-              <div class="product-info">
-                <div class="product-description">
-                  <div class="product-name">Monica</div>
-                  <div class="product-title">Комод</div>
-                </div>
-                <div class="product-price">$1,500</div>
-              </div>
-            </a>
-            <a class="product-container">
-              <img src="/static/public/33.jpg" />
-              <div class="product-info">
-                <div class="product-description">
-                  <div class="product-name">Monica</div>
-                  <div class="product-title">Комод</div>
-                </div>
-                <div class="product-price">$1,500</div>
-              </div>
-            </a>
-            <a class="product-container">
-              <img src="/static/public/9.jpg" />
-              <div class="product-info">
-                <div class="product-description">
-                  <div class="product-name">Monica</div>
-                  <div class="product-title">Комод</div>
-                </div>
-                <div class="product-price">$1,500</div>
-              </div>
-            </a>
-            <a class="product-container">
-              <img src="/static/public/7 (2).jpg" />
-              <div class="product-info">
-                <div class="product-description">
-                  <div class="product-name">Monica</div>
-                  <div class="product-title">Комод</div>
-                </div>
-                <div class="product-price">$1,500</div>
-              </div>
-            </a>
-            <a class="product-container">
-              <img src="/static/public/main.jpg" />
-              <div class="product-info">
-                <div class="product-description">
-                  <div class="product-name">Monica</div>
-                  <div class="product-title">Комод</div>
-                </div>
-                <div class="product-price">$1,500</div>
+                <div class="product-price">{{ product.price }}</div>
               </div>
             </a>
           </div>
