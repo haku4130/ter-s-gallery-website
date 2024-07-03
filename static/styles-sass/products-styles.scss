@@ -135,6 +135,59 @@ input[type='checkbox']:checked::before {
   }
 }
 
+.selected-filters-container {
+  @include center($horizontal: space-between);
+  padding: 0 $default-side-spacing * 3;
+  @media screen and (width < 1000px) {
+    padding: 0 calc($default-side-spacing / 2);
+  }
+  width: 100%;
+  min-height: calc($header-height / 2);
+  background-color: #f1f1f1;
+}
+
+.selected-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0;
+}
+
+.selected-item {
+  @include center;
+  gap: 0.4rem;
+  padding: 0rem 0.7rem;
+  height: 1.5rem;
+  border: #dddddd 1px solid;
+  border-radius: 30px;
+  background-color: white;
+  transition: background-color 0.2s linear;
+
+  font-size: smaller;
+  font-weight: 300;
+
+  &:hover {
+    background-color: #dadadad0;
+  }
+}
+
+.clear-filters {
+  border: #777 1px solid;
+  border-radius: 30px;
+  padding: 0 0.7rem;
+  height: 1.5rem;
+  color: white;
+  background-color: #3f3f3f;
+  @include center;
+  font-size: 0.7rem;
+  transition: background-color 0.2s linear;
+
+  &:hover {
+    background-color: #242424;
+  }
+}
+
 .main-products {
   width: 100%;
   @include center();
@@ -195,4 +248,77 @@ input[type='checkbox']:checked::before {
 .product-price {
   font-weight: 600;
   padding-top: calc($default-side-spacing / 2);
+}
+
+[v-cloak] {
+  display: none;
+}
+
+// price slider
+
+.price-filter.visible {
+  @include center;
+  height: 5rem;
+  min-width: 200px;
+  width: 100%;
+}
+
+.range-value {
+  position: absolute;
+  top: -2rem;
+}
+.range-value.min {
+  left: 0;
+}
+
+.range-value.max {
+  right: 0;
+}
+.track-container {
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+  height: 0.1rem;
+}
+
+.track,
+.track-highlight {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 0.1rem;
+}
+
+.track {
+  background-color: #ddd;
+}
+
+.track-highlight {
+  background-color: black;
+  z-index: 2;
+}
+
+.track-btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  display: block;
+  position: absolute;
+  z-index: 2;
+  width: 0.5rem;
+  height: 0.5rem;
+  top: calc(-50% - 0.15rem);
+  margin-left: -1rem;
+  border: none;
+  background-color: black;
+  -ms-touch-action: pan-x;
+  touch-action: pan-x;
+  transition: box-shadow 0.3s ease-out, background-color 0.3s ease,
+    -webkit-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out,
+    background-color 0.3s ease;
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out,
+    background-color 0.3s ease, -webkit-transform 0.3s ease-out;
 }

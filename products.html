@@ -47,7 +47,7 @@
     </header>
 
     <main>
-      <div id="app" class="main-container">
+      <div id="app" class="main-container" v-cloak>
         <div class="filters">
           <div class="filter-container">
             <div class="filter-icon cursor-link">ФИЛЬТРЫ</div>
@@ -99,8 +99,16 @@
 
             <div class="filter-item hidden">
               <button class="dropbtn cursor-link">ЦЕНА</button>
-              <div class="dropdown-content">
-                <a v-for="price in priceRanges" :key="price.id">
+              <div class="dropdown-content price-filter">
+                <div class="track-container">
+                  <span class="range-value min">{{ minValue}}</span>
+                  <span class="range-value max">{{ maxValue }}</span>
+                  <div class="track" ref="_vpcTrack"></div>
+                  <div class="track-highlight" ref="trackHighlight"></div>
+                  <button class="track-btn track1" ref="track1"></button>
+                  <button class="track-btn track2" ref="track2"></button>
+                </div>
+                <!-- <a v-for="price in priceRanges" :key="price.id">
                   <label :for="price.range">{{ price.range }}</label>
                   <input
                     type="checkbox"
@@ -108,18 +116,38 @@
                     :value="price.range"
                     v-model="selectedPrices"
                   />
-                </a>
+                </a> -->
               </div>
             </div>
           </div>
         </div>
-        <div class="selected-filters-container">
-          <div class="selected-filters" v-for="selection in combinedSelections">
-            {{ selection }}
+        <div
+          class="selected-filters-container"
+          v-if="combinedSelections.length"
+        >
+          <div class="selected-filters">
+            <div
+              class="selected-item"
+              v-for="(selection, id) in combinedSelections"
+              :key="id"
+              @click="removeFilter(id)"
+            >
+              {{ selection.value }}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-x"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
+                />
+              </svg>
+            </div>
           </div>
-          <div class="clear-filters" @click="clearFilters()">
-            ОЧИСТИТЬ ФИЛЬТРЫ
-          </div>
+          <div class="clear-filters" @click="clearFilters()">ОЧИСТИТЬ</div>
         </div>
         <div class="main-products">
           <div class="main-grid">
