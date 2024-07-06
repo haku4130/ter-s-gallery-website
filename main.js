@@ -76,39 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const dropbtns = document.querySelectorAll('.dropbtn');
-
-    dropbtns.forEach(function (btn) {
-        btn.addEventListener('click', function (event) {
-            event.stopPropagation();
-
-            let dropdownContent = btn.nextElementSibling;
-
-            dropdownContent.classList.toggle('visible');
-            document
-                .querySelectorAll('.dropdown-content.visible')
-                .forEach(function (content) {
-                    if (content !== dropdownContent)
-                        content.classList.remove('visible');
-                });
-        });
-    });
-
-    document.addEventListener('click', (event) => {
-        document
-            .querySelectorAll('.dropdown-content.visible')
-            .forEach((content) => {
-                if (
-                    !content.contains(event.target) &&
-                    !content.previousElementSibling.contains(event.target)
-                ) {
-                    content.classList.remove('visible');
-                }
-            });
-    });
-
     document.querySelector('.filter-icon')?.addEventListener('click', () => {
-        document.querySelectorAll('.filter-item').forEach((content) => {
+        document.querySelectorAll('.dropbtn').forEach((content) => {
             content.classList.toggle('hidden');
         });
     });

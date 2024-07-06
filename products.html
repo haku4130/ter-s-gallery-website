@@ -52,8 +52,8 @@
           <div class="filter-container">
             <div class="filter-icon cursor-link">ФИЛЬТРЫ</div>
 
-            <div class="filter-item hidden">
-              <button class="dropbtn cursor-link">КАТЕГОРИИ</button>
+            <div class="filter-item">
+              <button class="dropbtn hidden cursor-link">КАТЕГОРИИ</button>
               <div class="dropdown-content">
                 <a v-for="category in categories" :key="category.id">
                   <label :for="category.name">{{ category.name }}</label>
@@ -67,8 +67,8 @@
               </div>
             </div>
 
-            <div class="filter-item hidden">
-              <button class="dropbtn cursor-link">МАТЕРИАЛЫ</button>
+            <div class="filter-item">
+              <button class="dropbtn hidden cursor-link">МАТЕРИАЛЫ</button>
               <div class="dropdown-content">
                 <a v-for="material in materials" :key="material.id">
                   <label :for="material.name">{{ material.name }}</label>
@@ -82,8 +82,8 @@
               </div>
             </div>
 
-            <div class="filter-item hidden">
-              <button class="dropbtn cursor-link">ЦВЕТ</button>
+            <div class="filter-item">
+              <button class="dropbtn hidden cursor-link">ЦВЕТ</button>
               <div class="dropdown-content">
                 <a v-for="color in colors" :key="color.id">
                   <label :for="color.name">{{ color.name }}</label>
@@ -97,63 +97,58 @@
               </div>
             </div>
 
-            <div class="filter-item hidden">
-              <button class="dropbtn cursor-link">ЦЕНА</button>
+            <div class="filter-item">
+              <button class="dropbtn hidden cursor-link">ЦЕНА</button>
               <div class="dropdown-content price-filter">
                 <div class="track-container">
-                  <span class="range-value min">{{ minValue}}</span>
-                  <span class="range-value max">{{ maxValue }}</span>
-                  <div class="track" ref="_vpcTrack"></div>
-                  <div class="track-highlight" ref="trackHighlight"></div>
-                  <button class="track-btn track1" ref="track1"></button>
-                  <button class="track-btn track2" ref="track2"></button>
+                  <span class="range-value min">${{ minValue}}</span>
+                  <span class="range-value max">${{ maxValue }}</span>
+                  <a class="track" ref="_vpcTrack"></a>
+                  <a class="track-highlight" ref="trackHighlight"></a>
+                  <a class="track-btn track1-placeholder"></a>
+                  <a class="track-btn track1" ref="track1"></a>
+                  <a class="track-btn track2" ref="track2"></a>
+                  <a class="track-btn track2-placeholder"></a>
                 </div>
-                <!-- <a v-for="price in priceRanges" :key="price.id">
-                  <label :for="price.range">{{ price.range }}</label>
-                  <input
-                    type="checkbox"
-                    :id="price.range"
-                    :value="price.range"
-                    v-model="selectedPrices"
-                  />
-                </a> -->
               </div>
             </div>
           </div>
         </div>
-        <div
-          class="selected-filters-container"
-          v-if="combinedSelections.length"
-        >
-          <div class="selected-filters">
-            <div
-              class="selected-item"
-              v-for="(selection, id) in combinedSelections"
-              :key="id"
-              @click="removeFilter(id)"
-            >
-              {{ selection.value }}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-x"
-                viewBox="0 0 16 16"
+        <transition>
+          <div
+            class="selected-filters-container collapsible-content"
+            v-if="combinedSelections.length"
+          >
+            <div class="selected-filters">
+              <div
+                class="selected-item"
+                v-for="(selection, id) in combinedSelections"
+                :key="id"
+                @click="removeFilter(id)"
               >
-                <path
-                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
-                />
-              </svg>
+                {{ selection.str ? selection.str : '' }}{{ selection.value }}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-x"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
+                  />
+                </svg>
+              </div>
             </div>
+            <div class="clear-filters" @click="clearFilters()">ОЧИСТИТЬ</div>
           </div>
-          <div class="clear-filters" @click="clearFilters()">ОЧИСТИТЬ</div>
-        </div>
+        </transition>
         <div class="main-products">
-          <div class="main-grid">
+          <transition-group tag="div" name="list" class="main-grid">
             <a
               v-for="product in filteredProducts"
-              :key="product.image"
+              :key="product"
               class="product-container"
             >
               <img :src="product.image" />
@@ -165,7 +160,7 @@
                 <div class="product-price">{{ product.price }}</div>
               </div>
             </a>
-          </div>
+          </transition-group>
         </div>
       </div>
     </main>

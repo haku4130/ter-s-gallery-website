@@ -31,6 +31,15 @@ button {
   font-family: 'Inter', Arial, sans-serif;
 }
 
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid $default-line-color;
+  margin: 0 0;
+  padding: 0;
+}
+
 .custom-cursor {
   position: fixed;
   width: 8px;

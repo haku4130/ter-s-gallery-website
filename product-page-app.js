@@ -69,10 +69,9 @@ createApp({
         const selectedCategories = ref([]);
         const selectedMaterials = ref([]);
         const selectedColors = ref([]);
-        const selectedPrices = ref([]);
 
         const combinedSelections = computed(() => {
-            return [
+            const selections = [
                 ...selectedCategories.value.map((item) => ({
                     type: 'category',
                     value: item,
@@ -85,11 +84,25 @@ createApp({
                     type: 'color',
                     value: item,
                 })),
-                ...selectedPrices.value.map((item) => ({
-                    type: 'price',
-                    value: item,
-                })),
             ];
+
+            if (minValue.value !== min.value) {
+                selections.push({
+                    type: 'min-price',
+                    value: minValue.value,
+                    str: 'Цена от: $',
+                });
+            }
+
+            if (maxValue.value !== max.value) {
+                selections.push({
+                    type: 'max-price',
+                    value: maxValue.value,
+                    str: 'Цена до: $',
+                });
+            }
+
+            return selections;
         });
 
         const categories = computed(() => {
@@ -116,47 +129,6 @@ createApp({
             ];
             return uniqueColors.map((name, index) => ({ id: index + 1, name }));
         });
-        const priceRanges = ref([
-            { id: 1, range: 'до $1000' },
-            { id: 2, range: '$1000 - $2000' },
-            { id: 3, range: 'свыше $2000' },
-        ]);
-
-        const filteredProducts = computed(() => {
-            return products.value.filter((product) => {
-                return (
-                    (selectedCategories.value.length === 0 ||
-                        selectedCategories.value.includes(product.title)) &&
-                    (selectedMaterials.value.length === 0 ||
-                        selectedMaterials.value.includes(product.material)) &&
-                    (selectedColors.value.length === 0 ||
-                        selectedColors.value.includes(product.color)) &&
-                    (selectedPrices.value.length === 0 ||
-                        selectedPrices.value.some((price) =>
-                            priceMatch(product.price, price)
-                        ))
-                );
-            });
-        });
-
-        const priceMatch = (productPrice, selectedPriceRange) => {
-            const price = parseInt(productPrice.replace(/[$,]/g, ''));
-            if (selectedPriceRange === 'до $1000') {
-                return price < 1000;
-            } else if (selectedPriceRange === '$1000 - $2000') {
-                return price >= 1000 && price <= 2000;
-            } else if (selectedPriceRange === 'свыше $2000') {
-                return price > 2000;
-            }
-            return false;
-        };
-
-        function clearFilters() {
-            selectedCategories.value = [];
-            selectedMaterials.value = [];
-            selectedColors.value = [];
-            selectedPrices.value = [];
-        }
 
         function removeFilter(id) {
             const selection = combinedSelections.value[id];
@@ -172,20 +144,42 @@ createApp({
                 selectedColors.value = selectedColors.value.filter(
                     (item) => item !== selection.value
                 );
-            } else if (selection.type === 'price') {
-                selectedPrices.value = selectedPrices.value.filter(
-                    (item) => item !== selection.value
-                );
+            } else if (selection.type === 'min-price') {
+                minValue.value = min.value;
+            } else if (selection.type === 'max-price') {
+                maxValue.value = max.value;
             }
+            updateSlider();
+        }
+
+        function updateSlider() {
+            track1.value.style.left = valueToPercent(minValue.value) + '%';
+            track2.value.style.left = valueToPercent(maxValue.value) + '%';
+            setTrackHightlight();
         }
 
         // price slider
 
-        const min = ref(20);
-        const max = ref(200);
-        const minValue = ref(20);
-        const maxValue = ref(200);
-        const step = ref(1);
+        const minPrice = computed(() =>
+            Math.min(
+                ...products.value.map((p) =>
+                    parseInt(p.price.replace(/[$,]/g, ''))
+                )
+            )
+        );
+        const maxPrice = computed(() =>
+            Math.max(
+                ...products.value.map((p) =>
+                    parseInt(p.price.replace(/[$,]/g, ''))
+                )
+            )
+        );
+
+        const min = ref(minPrice.value);
+        const max = ref(maxPrice.value);
+        const minValue = ref(minPrice.value);
+        const maxValue = ref(maxPrice.value);
+        const step = ref(50);
 
         const totalSteps = computed(() => (max.value - min.value) / step.value);
         const percentPerStep = computed(() => 100 / totalSteps.value);
@@ -223,7 +217,7 @@ createApp({
             const clientX = ev.clientX;
             const moveDiff = clientX - trackX;
 
-            const moveInPct = moveDiff / percentInPx.value;
+            let moveInPct = moveDiff / percentInPx.value;
 
             if (moveInPct < 0) moveInPct = 0; // Ограничиваем движение влево
             if (moveInPct > 100) moveInPct = 100; // Ограничиваем движение вправо
@@ -276,7 +270,93 @@ createApp({
             }
         };
 
+        const filteredProducts = computed(() => {
+            return products.value.filter((product) => {
+                const productPrice = parseInt(
+                    product.price.replace(/[$,]/g, '')
+                );
+
+                return (
+                    (selectedCategories.value.length === 0 ||
+                        selectedCategories.value.includes(product.title)) &&
+                    (selectedMaterials.value.length === 0 ||
+                        selectedMaterials.value.includes(product.material)) &&
+                    (selectedColors.value.length === 0 ||
+                        selectedColors.value.includes(product.color)) &&
+                    productPrice >= minValue.value &&
+                    productPrice <= maxValue.value
+                );
+            });
+        });
+
+        function clearFilters() {
+            selectedCategories.value = [];
+            selectedMaterials.value = [];
+            selectedColors.value = [];
+            minValue.value = min.value;
+            maxValue.value = max.value;
+            updateSlider();
+        }
+
+        const toggleDropdown = (event) => {
+            const dropdownContent = event.target.nextElementSibling;
+            if (dropdownContent.classList.contains('visible')) {
+                if (dropdownContent.classList.contains('price-filter')) {
+                    dropdownContent.style.height = '80px';
+                } else {
+                    dropdownContent.style.height =
+                        dropdownContent.scrollHeight + 'px';
+                }
+                requestAnimationFrame(() => {
+                    dropdownContent.style.height = '0';
+                });
+                setTimeout(
+                    () => dropdownContent.classList.toggle('visible'),
+                    250
+                );
+            } else {
+                if (dropdownContent.classList.contains('price-filter')) {
+                    dropdownContent.style.height = '80px';
+                } else {
+                    dropdownContent.style.height =
+                        dropdownContent.scrollHeight + 'px';
+                }
+                dropdownContent.classList.toggle('visible');
+            }
+        };
+
         onMounted(() => {
+            const dropbtns = document.querySelectorAll('.dropbtn');
+            dropbtns.forEach((btn) =>
+                btn.addEventListener('click', toggleDropdown)
+            );
+            document.addEventListener('click', (event) => {
+                document
+                    .querySelectorAll('.dropdown-content.visible')
+                    .forEach((content) => {
+                        if (
+                            !content.contains(event.target) &&
+                            !content.previousElementSibling.contains(
+                                event.target
+                            )
+                        ) {
+                            if (content.classList.contains('price-filter')) {
+                                content.style.height = '80px';
+                            } else {
+                                content.style.height =
+                                    content.scrollHeight + 'px';
+                            }
+                            requestAnimationFrame(() => {
+                                content.style.height = '0';
+                            });
+                            setTimeout(
+                                () => content.classList.toggle('visible'),
+                                250
+                            );
+                        }
+                    });
+            });
+
             track1.value.style.left = valueToPercent(minValue.value) + '%';
             track2.value.style.left = valueToPercent(maxValue.value) + '%';
             setTrackHightlight();
@@ -331,12 +411,10 @@ createApp({
             selectedCategories,
             selectedMaterials,
             selectedColors,
-            selectedPrices,
             combinedSelections,
             categories,
             materials,
             colors,
-            priceRanges,
             filteredProducts,
             clearFilters,
             removeFilter,
