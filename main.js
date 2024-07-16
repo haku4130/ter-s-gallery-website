@@ -25,6 +25,15 @@ function toggleNav() {
     }
 }
 
+function scrollWithOffset(id) {
+    const element = document.getElementById(id);
+    const yOffset = -161;
+    const yPosition =
+        element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+    window.scrollTo({ top: yPosition, behavior: 'smooth' });
+}
+
 document.querySelector('.hamburger').addEventListener('click', toggleNav);
 
 document.addEventListener('DOMContentLoaded', () => {

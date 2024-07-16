@@ -26,6 +26,10 @@
   background-color: #777;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body,
 button {
   font-family: 'Inter', Arial, sans-serif;

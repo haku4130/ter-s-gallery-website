@@ -1,2 +1,4 @@
 static/styles
 .sass-cache
+venv
+__pycache__

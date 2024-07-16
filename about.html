@@ -5,7 +5,7 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/static/styles/base-styles.css" />
-    <link rel="stylesheet" href="/static/styles/products-styles.css" />
+    <link rel="stylesheet" href="/static/styles/about-styles.css" />
     <title>ter`s gallery</title>
   </head>
   <body>
@@ -21,14 +21,14 @@
             </li>
             <li><a>О НАС</a></li>
             <li><a>ПРОЕКТЫ</a></li>
-            <li><a href="/contact.html">КОНТАКТЫ</a></li>
+            <li><a>КОНТАКТЫ</a></li>
           </ul>
         </nav>
         <div id="mySidenav" class="sidenav sidenav-opacity">
           <a href="/products.html">ПРОДУКТЫ</a>
           <a href="#">О НАС</a>
           <a href="#">ПРОЕКТЫ</a>
-          <a href="/contact.html">КОНТАКТЫ</a>
+          <a href="#">КОНТАКТЫ</a>
         </div>
         <svg
           class="hamburger cursor-link"
@@ -47,120 +47,104 @@
     </header>
 
     <main>
-      <div id="app" class="main-container" v-cloak>
-        <div class="filters">
-          <div class="filter-container">
-            <div class="filter-icon cursor-link">ФИЛЬТРЫ</div>
-
-            <div class="filter-item">
-              <button class="dropbtn hidden cursor-link">КАТЕГОРИИ</button>
-              <div class="dropdown-content">
-                <a v-for="category in categories" :key="category.id">
-                  <label :for="category.name">{{ category.name }}</label>
-                  <input
-                    type="checkbox"
-                    :id="category.name"
-                    :value="category.name"
-                    v-model="selectedCategories"
-                  />
-                </a>
-              </div>
+      <div class="main-container">
+        <div class="about-text">
+          <div class="about-title about-firstly-font-weight">О НАС</div>
+          <div class="about-links">
+            <div>
+              <a onclick="scrollWithOffset('ideology')">ИДЕОЛОГИЯ</a>
             </div>
-
-            <div class="filter-item">
-              <button class="dropbtn hidden cursor-link">МАТЕРИАЛЫ</button>
-              <div class="dropdown-content">
-                <a v-for="material in materials" :key="material.id">
-                  <label :for="material.name">{{ material.name }}</label>
-                  <input
-                    type="checkbox"
-                    :id="material.name"
-                    :value="material.name"
-                    v-model="selectedMaterials"
-                  />
-                </a>
-              </div>
+            <div>
+              <a onclick="scrollWithOffset('materials')">МАТЕРИАЛЫ</a>
             </div>
-
-            <div class="filter-item">
-              <button class="dropbtn hidden cursor-link">ЦВЕТ</button>
-              <div class="dropdown-content">
-                <a v-for="color in colors" :key="color.id">
-                  <label :for="color.name">{{ color.name }}</label>
-                  <input
-                    type="checkbox"
-                    :id="color.name"
-                    :value="color.name"
-                    v-model="selectedColors"
-                  />
-                </a>
-              </div>
-            </div>
-
-            <div class="filter-item">
-              <button class="dropbtn hidden cursor-link">ЦЕНА</button>
-              <div class="dropdown-content price-filter">
-                <div class="track-container">
-                  <span class="range-value min">${{ minValue}}</span>
-                  <span class="range-value max">${{ maxValue }}</span>
-                  <a class="track" ref="_vpcTrack"></a>
-                  <a class="track-highlight" ref="trackHighlight"></a>
-                  <a class="track-btn track1-placeholder"></a>
-                  <a class="track-btn track1" ref="track1"></a>
-                  <a class="track-btn track2" ref="track2"></a>
-                  <a class="track-btn track2-placeholder"></a>
-                </div>
-              </div>
+            <div>
+              <a onclick="scrollWithOffset('production')">ПРОИЗВОДСТВО</a>
             </div>
           </div>
         </div>
-        <transition>
-          <div
-            class="selected-filters-container collapsible-content"
-            v-if="combinedSelections.length"
-          >
-            <div class="selected-filters">
-              <div
-                class="selected-item"
-                v-for="(selection, id) in combinedSelections"
-                :key="id"
-                @click="removeFilter(id)"
-              >
-                {{ selection.str ? selection.str : '' }}{{ selection.value }}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-x"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
-                  />
-                </svg>
-              </div>
+        <div class="about-image">
+          <img src="/static/public/carpenter.jpg" alt="about img" />
+        </div>
+      </div>
+      <hr />
+      <div class="about-main-content-container">
+        <div id="ideology" class="content-text">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+          facilisis aliquet dolor, quis ultricies felis hendrerit sit amet.
+          Nullam suscipit fermentum neque commodo dignissim. Suspendisse feugiat
+          lorem quis ex hendrerit vulputate. Quisque eleifend nunc sit amet mi
+          venenatis cursus. Cras egestas ac leo pulvinar fringilla. Ut tellus
+          mauris, volutpat at lobortis sed, ultrices sit amet metus. Praesent
+          vel lorem vehicula, accumsan purus nec, interdum libero. Integer
+          iaculis consequat elementum. Proin aliquet semper dui et sodales.
+
+          <br /><br />Ut sed lectus ligula. Proin eget ornare urna. Sed rhoncus
+          tincidunt turpis, non consectetur dui mollis nec. Nam sagittis
+          ultrices risus sed facilisis. Donec tincidunt consequat lacus, quis
+          tincidunt nunc viverra et. Etiam pharetra vitae sem vitae consequat.
+          Nulla congue rutrum mattis. Nunc at vulputate mauris. Sed cursus
+          faucibus bibendum. Nullam tortor sem, facilisis eu pharetra at,
+          dapibus nec leo. Sed iaculis consequat ipsum sit amet dapibus. Donec
+          ante diam, iaculis a congue vitae, rhoncus ac ipsum.
+        </div>
+        <hr />
+        <div id="materials" class="content-text">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non eaque
+          impedit praesentium ullam hic reprehenderit autem, odio, cum accusamus
+          quas voluptate enim aliquid cupiditate nisi laboriosam. Ipsa aut
+          blanditiis animi.
+        </div>
+        <div class="materials-grid">
+          <div class="grid-element">
+            <div class="material-img">
+              <img src="/static/public/PE.jpg" alt="Материал" />
             </div>
-            <div class="clear-filters" @click="clearFilters()">ОЧИСТИТЬ</div>
+            <div class="material-title">polyethylene</div>
           </div>
-        </transition>
-        <div class="main-products">
-          <transition-group tag="div" name="list" class="main-grid">
-            <a
-              v-for="product in filteredProducts"
-              :key="product"
-              class="product-container"
-            >
-              <img :src="product.image" />
-              <div class="product-info">
-                <div class="product-description">
-                  <div class="product-name">{{ product.name }}</div>
-                  <div class="product-title">{{ product.title }}</div>
-                </div>
-                <div class="product-price">{{ product.price }}</div>
-              </div>
-            </a>
-          </transition-group>
+          <div class="grid-element">
+            <div class="material-img">
+              <img src="/static/public/Безымянный-4.jpg" alt="Материал" />
+            </div>
+            <div class="material-title">leather</div>
+          </div>
+          <div class="grid-element">
+            <div class="material-img">
+              <img src="/static/public/Безымянный-3.jpg" alt="Материал" />
+            </div>
+            <div class="material-title">brass</div>
+          </div>
+          <div class="grid-element">
+            <div class="material-img">
+              <img src="/static/public/Безымянный-7.jpg" alt="Материал" />
+            </div>
+            <div class="material-title">steel</div>
+          </div>
+          <div class="grid-element">
+            <div class="material-img">
+              <img src="/static/public/Marble.jpg" alt="Материал" />
+            </div>
+            <div class="material-title">marble</div>
+          </div>
+          <div class="grid-element">
+            <div class="material-img">
+              <img src="/static/public/Безымянный-5.jpg" alt="Материал" />
+            </div>
+            <div class="material-title">enamel</div>
+          </div>
+        </div>
+        <hr />
+        <div id="production" class="content-text">
+          Ut sed lectus ligula. Proin eget ornare urna. Sed rhoncus tincidunt
+          turpis, non consectetur dui mollis nec. Nam sagittis ultrices risus
+          sed facilisis. Donec tincidunt consequat lacus, quis tincidunt nunc
+          viverra et. Etiam pharetra vitae sem vitae consequat. Nulla congue
+          rutrum mattis. Nunc at vulputate mauris. Sed cursus faucibus bibendum.
+          Nullam tortor sem, facilisis eu pharetra at, dapibus nec leo. Sed
+          iaculis consequat ipsum sit amet dapibus. Donec ante diam, iaculis a
+          congue vitae, rhoncus ac ipsum.
+        </div>
+        <div class="production-img">
+          <img src="/static/public/production.jpg" alt="Производство" />
         </div>
       </div>
     </main>
@@ -225,6 +209,4 @@
     </footer>
   </body>
   <script src="/main.js"></script>
-  <script src="/disclosure.js"></script>
-  <script type="module" src="/product-page-app.js"></script>
 </html>
