@@ -7,24 +7,28 @@ main {
 .main-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: $default-side-spacing * 1.5;
   margin: 0 $default-side-spacing * 3;
   margin-bottom: $default-side-spacing * 1.5;
+  height: calc(100vh - 11rem);
 }
 
 .contact-image {
   display: flex;
   flex-grow: 1;
   height: fit-content;
-  max-height: 80vh;
+  height: 55vh;
 
   img {
     width: 100%;
     object-fit: cover;
+    aspect-ratio: 16/ 9;
   }
 }
 
 .contact-text {
+  height: 55vh;
   min-width: fit-content;
 }
 
@@ -35,7 +39,7 @@ main {
 $contact-elem-margin-bottom: 3rem;
 
 .contact-title {
-  margin-bottom: $contact-elem-margin-bottom / 2 !important;
+  margin-bottom: calc($contact-elem-margin-bottom / 2) !important;
   line-height: 0.9;
 }
 
@@ -103,11 +107,31 @@ $contact-elem-margin-bottom: 3rem;
   }
 
   .main-container {
-    margin: 0 calc($default-side-spacing / 2);
-    flex-direction: column;
+    $mobile-vertical-text-to-img-space: 4rem;
+    margin: 0 calc($default-side-spacing / 2) $mobile-vertical-text-to-img-space;
+    flex-direction: column-reverse;
+    height: auto;
+    align-items: start;
+    gap: $mobile-vertical-text-to-img-space;
+  }
+
+  .contact-text {
+    height: auto;
+  }
+
+  .contact-image {
+    height: auto;
+    width: 100%;
   }
 
   .company-tel {
     margin-bottom: $contact-elem-margin-bottom !important;
+  }
+}
+
+@media screen and (width < 800px) {
+  .addresses {
+    flex-direction: column;
+    gap: 3rem;
   }
 }

@@ -7,9 +7,11 @@ main {
 .main-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: $default-side-spacing * 1.5;
   margin: 0 $default-side-spacing * 3;
   margin-bottom: $default-side-spacing * 1.5;
+  height: calc(100vh - 11rem);
 }
 
 .about-image {
@@ -17,12 +19,12 @@ main {
   flex-grow: 1;
   height: fit-content;
   width: 60%;
-  height: 80vh;
 
   img {
     width: 100%;
     object-fit: cover;
-    max-height: 60vh;
+    max-height: 55vh;
+    aspect-ratio: 16/9;
   }
 }
 
@@ -39,7 +41,7 @@ main {
 }
 
 .about-firstly-font-weight {
-  font-weight: 550;
+  font-weight: 500;
 }
 
 .about-links {
@@ -54,13 +56,6 @@ main {
     a:hover {
       opacity: 1;
     }
-  }
-}
-
-@media screen and (width < 1000px) {
-  .main-container {
-    margin: 0 calc($default-side-spacing / 2);
-    flex-direction: column-reverse;
   }
 }
 
@@ -94,4 +89,55 @@ main {
   font-size: 1.3rem;
   margin-top: 1rem;
   text-transform: uppercase;
+}
+
+.production-img {
+  margin-bottom: 3rem;
+}
+
+@media screen and (width < 1000px) {
+  $links-gap: 8px;
+  .main-container {
+    margin: 4rem calc($default-side-spacing / 2) 3rem;
+    flex-direction: column;
+    align-items: start;
+    height: auto;
+    gap: calc(3rem - $links-gap);
+  }
+
+  .about-main-content-container {
+    padding: 0 calc($default-side-spacing / 2);
+  }
+
+  .about-title {
+    margin-bottom: 4rem;
+    font-size: 110%;
+  }
+
+  .about-text {
+    width: auto;
+  }
+
+  .about-image {
+    width: 100%;
+  }
+
+  .about-links {
+    div {
+      font-size: 0.9rem;
+      margin-bottom: $links-gap;
+    }
+  }
+
+  .materials-grid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1.5rem;
+    margin: 2rem 0;
+  }
+}
+
+@media screen and (width < 500px) {
+  .materials-grid {
+    grid-template-columns: 1fr;
+  }
 }
