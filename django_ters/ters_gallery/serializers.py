@@ -1,43 +1,42 @@
-# serializers.py
-
 from rest_framework import serializers
-from .models import Product, ProductImage, Material, Color, Collection
-
-
-class ProductImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProductImage
-        fields = ['id', 'image']
-
-
-class MaterialSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Material
-        fields = ['name']
-
-
-class ColorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Color
-        fields = ['name']
+from .models import Collection, Material, Color, Product, ProductImage
 
 
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
-        fields = ['id', 'name', 'main_image', 'description']
+        fields = ['id', 'name', 'description', 'main_image', 'is_main']
+
+
+class MaterialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Material
+        fields = ['id', 'name']
+
+
+class ColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Color
+        fields = ['id', 'name']
+
+
+class ProductImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = ['id', 'image', 'product']
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    main_image = ProductImageSerializer(read_only=True)
     images = ProductImageSerializer(many=True, read_only=True)
     materials = MaterialSerializer(many=True, read_only=True)
     colors = ColorSerializer(many=True, read_only=True)
-    main_image = ProductImageSerializer(read_only=True)
     collection = CollectionSerializer(read_only=True)
 
     class Meta:
         model = Product
         fields = [
+            'id',
             'name',
             'title',
             'price',
@@ -47,6 +46,6 @@ class ProductSerializer(serializers.ModelSerializer):
             'size',
             'materials',
             'colors',
-            'images',
             'collection',
+            'images',
         ]

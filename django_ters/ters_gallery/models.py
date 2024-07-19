@@ -4,38 +4,26 @@ from django.core.exceptions import ValidationError
 
 class Collection(models.Model):
     name = models.CharField(max_length=100)
-    main_image = models.OneToOneField(
-        'CollectionImage',
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='main_for_collections',
-    )
     description = models.TextField(blank=True)
+    main_image = models.ImageField(upload_to='collections/')
+    is_main = models.BooleanField(
+        default=False,
+        help_text='Выбор коллекции для отображения на главной странице. При выборе, заменяет выбранную до этого момента.',
+    )
 
     @classmethod
     def get_default_pk(cls):
-        default_image, created = CollectionImage.objects.get_or_create(
-            image='path/to/default/image.jpg'
-        )
         collection, created = cls.objects.get_or_create(
             name='default collection',
             defaults=dict(
                 description='Default collection',
-                main_image=default_image,
+                main_image='collections/main.jpg',
             ),
         )
         return collection.pk
 
     def __str__(self):
         return self.name
-
-
-class CollectionImage(models.Model):
-    image = models.ImageField(upload_to='collections/')
-
-    def __str__(self):
-        return self.image.name
 
 
 class Material(models.Model):

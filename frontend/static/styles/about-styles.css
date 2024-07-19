@@ -1,0 +1,91 @@
+main {
+  flex-direction: column;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+  margin: 0 6rem;
+  margin-bottom: 3rem;
+}
+
+.about-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  height: fit-content;
+  width: 60%;
+  height: 80vh;
+}
+.about-image img {
+  width: 100%;
+  object-fit: cover;
+  max-height: 60vh;
+}
+
+.about-text {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-title {
+  margin-bottom: 5rem;
+  font-size: 1.3rem;
+}
+
+.about-firstly-font-weight {
+  font-weight: 550;
+}
+
+.about-links div {
+  margin-bottom: 1rem;
+}
+.about-links div a {
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.about-links div a:hover {
+  opacity: 1;
+}
+
+@media screen and (width < 1000px) {
+  .main-container {
+    margin: 0 1rem;
+    flex-direction: column-reverse;
+  }
+}
+.about-main-content-container {
+  padding: 0 6rem;
+}
+
+.content-text {
+  color: rgb(151, 151, 151);
+  margin: 2rem 0;
+}
+
+.materials-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3rem;
+  margin: 2rem 0;
+}
+
+.material-img img,
+.production-img img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 1;
+  max-height: 40vh;
+}
+
+.material-title {
+  font-size: 1.3rem;
+  margin-top: 1rem;
+  text-transform: uppercase;
+}
+
+/*# sourceMappingURL=about-styles.css.map */
