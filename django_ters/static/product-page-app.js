@@ -56,21 +56,75 @@ createApp({
                 name,
             }));
         });
+
         const materials = computed(() => {
             const uniqueMaterials = [
-                ...new Set(products.value.map((product) => product.material)),
+                ...new Set(
+                    products.value.flatMap((product) =>
+                        product.materials.map((material) => material.name)
+                    )
+                ),
             ];
             return uniqueMaterials.map((name, index) => ({
                 id: index + 1,
                 name,
             }));
         });
+
         const colors = computed(() => {
             const uniqueColors = [
-                ...new Set(products.value.map((product) => product.color)),
+                ...new Set(
+                    products.value.flatMap((product) =>
+                        product.colors.map((color) => color.name)
+                    )
+                ),
             ];
             return uniqueColors.map((name, index) => ({ id: index + 1, name }));
         });
+
+        const filteredProducts = computed(() => {
+            return products.value.filter((product) => {
+                const productPrice = parseInt(
+                    product.price.replace(/[$,]/g, '')
+                );
+
+                const materialMatch =
+                    selectedMaterials.value.length === 0 ||
+                    selectedMaterials.value.some((selectedMaterial) =>
+                        product.materials.some(
+                            (productMaterial) =>
+                                productMaterial.name === selectedMaterial
+                        )
+                    );
+
+                const colorMatch =
+                    selectedColors.value.length === 0 ||
+                    selectedColors.value.some((selectedColor) =>
+                        product.colors.some(
+                            (productColor) =>
+                                productColor.name === selectedColor
+                        )
+                    );
+
+                return (
+                    (selectedCategories.value.length === 0 ||
+                        selectedCategories.value.includes(product.title)) &&
+                    materialMatch &&
+                    colorMatch &&
+                    productPrice >= minValue.value &&
+                    productPrice <= maxValue.value
+                );
+            });
+        });
+
+        function clearFilters() {
+            selectedCategories.value = [];
+            selectedMaterials.value = [];
+            selectedColors.value = [];
+            minValue.value = min.value;
+            maxValue.value = max.value;
+            updateSlider();
+        }
 
         function removeFilter(id) {
             const selection = combinedSelections.value[id];
@@ -94,13 +148,13 @@ createApp({
             updateSlider();
         }
 
+        // price slider
+
         function updateSlider() {
             track1.value.style.left = valueToPercent(minValue.value) + '%';
             track2.value.style.left = valueToPercent(maxValue.value) + '%';
             setTrackHightlight();
         }
-
-        // price slider
 
         const minPrice = computed(() =>
             Math.min(
@@ -211,34 +265,6 @@ createApp({
                 moveTrack('track2', ev);
             }
         };
-
-        const filteredProducts = computed(() => {
-            return products.value.filter((product) => {
-                const productPrice = parseInt(
-                    product.price.replace(/[$,]/g, '')
-                );
-
-                return (
-                    (selectedCategories.value.length === 0 ||
-                        selectedCategories.value.includes(product.title)) &&
-                    (selectedMaterials.value.length === 0 ||
-                        selectedMaterials.value.includes(product.material)) &&
-                    (selectedColors.value.length === 0 ||
-                        selectedColors.value.includes(product.color)) &&
-                    productPrice >= minValue.value &&
-                    productPrice <= maxValue.value
-                );
-            });
-        });
-
-        function clearFilters() {
-            selectedCategories.value = [];
-            selectedMaterials.value = [];
-            selectedColors.value = [];
-            minValue.value = min.value;
-            maxValue.value = max.value;
-            updateSlider();
-        }
 
         onMounted(async () => {
             // Fetch products from API
