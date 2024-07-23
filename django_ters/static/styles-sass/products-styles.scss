@@ -209,13 +209,13 @@ input[type='checkbox']:checked::before {
     opacity: 0.5;
     @include center();
     text-transform: uppercase;
-    font-size: 0.8rem;
+    font-size: clamp(0.6rem, 1.3vw, 0.8rem);
     padding-top: calc($default-side-spacing / 6);
   }
 
   .product-name {
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: clamp(0.8rem, 1.5vw, 1.1rem);
     text-transform: uppercase;
     text-align: center;
   }
@@ -223,6 +223,7 @@ input[type='checkbox']:checked::before {
 
 .product-price {
   font-weight: 600;
+  font-size: clamp(0.9rem, 1.5vw, 1.3rem);
   padding-top: calc($default-side-spacing / 2);
 }
 

@@ -108,11 +108,12 @@ $contact-elem-margin-bottom: 3rem;
 
   .main-container {
     $mobile-vertical-text-to-img-space: 4rem;
-    margin: 0 calc($default-side-spacing / 2) $mobile-vertical-text-to-img-space;
+    margin: 2rem calc($default-side-spacing / 2)
+      $mobile-vertical-text-to-img-space;
     flex-direction: column-reverse;
     height: auto;
     align-items: start;
-    gap: $mobile-vertical-text-to-img-space;
+    gap: calc($mobile-vertical-text-to-img-space / 1.5);
   }
 
   .contact-text {
