@@ -126,6 +126,18 @@ header.with-bottom-border {
 
 .nav-link-active {
   opacity: 90%;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: black;
+    bottom: -1px;
+    left: 0;
+  }
 }
 
 nav {
@@ -134,11 +146,13 @@ nav {
     display: flex;
   }
   li {
-    opacity: 50%;
     margin-left: 4rem;
-    transition: opacity 0.5s ease;
-    &:hover {
-      @extend .nav-link-active;
+    a {
+      opacity: 50%;
+      transition: opacity 0.5s ease;
+      &:hover {
+        opacity: 90%;
+      }
     }
   }
   @media screen and (max-width: 1200px) {
@@ -185,10 +199,10 @@ nav {
 }
 
 .hamburger {
+  transition: opacity 0.5s ease;
   @media screen and (width > 1200px) {
     display: none;
   }
-  transition: opacity 0.5s ease;
 }
 
 .hamburger:hover {

@@ -9,3 +9,6 @@ load:
 
 dump:
 	python manage.py dumpdata > fixtures.json
+
+collect:
+	python manage.py collectstatic --noinput

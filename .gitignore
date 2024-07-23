@@ -3,3 +3,4 @@ venv
 public_html/static/admin/
 public_html/static/debug_toolbar
 public_html/static/rest_framework
+.vscode
