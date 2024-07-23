@@ -41,7 +41,6 @@
   width: 100%;
   height: $header-height;
   @include center($horizontal: space-between);
-  padding-top: 20px;
 
   .left-side {
     height: 50px;
@@ -55,10 +54,6 @@
 
   .main-content {
     margin-top: 40vh;
-  }
-
-  .main-collection-info {
-    padding-top: 0;
   }
 }
 
@@ -131,7 +126,7 @@
   left: 0;
   right: 0;
   color: white;
-  margin: 5%;
+  margin: 4%;
 
   .name {
     font-size: clamp(0.9rem, 1.5vw, 1.5rem);
@@ -143,7 +138,7 @@
   }
 
   .categoty {
-    font-size: clamp(0.6rem, 1.5vw, 1rem);
+    font-size: clamp(0.7rem, 1.5vw, 1rem);
     opacity: 80%;
     text-transform: uppercase;
   }
