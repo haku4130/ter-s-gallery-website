@@ -23,7 +23,7 @@
     </div>
     <div class="gallery">
       {% for product in products %}
-        <a href="{% url 'product_detail' product.id %}" class="gallery-item">
+        <a href="{% url 'product_detail' product.id %}" class="gallery-item" id="product_{{ product.id }}">
           <img src="{{ product.main_image.image.url }}" alt="{{ product.name }}" />
           <div class="gallery-item-info">
             <div class="name">{{ product.name }}</div>
