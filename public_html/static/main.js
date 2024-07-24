@@ -27,9 +27,14 @@ function toggleNav() {
 
 function scrollWithOffset(id) {
     const element = document.getElementById(id);
-    const yOffset = -161;
+
+    let yOffset = -161;
+    if (window.innerWidth < 1000) {
+        yOffset = -118.33;
+    }
+
     const yPosition =
-        element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        element.getBoundingClientRect().top + window.scrollY + yOffset;
 
     window.scrollTo({ top: yPosition, behavior: 'smooth' });
 }
