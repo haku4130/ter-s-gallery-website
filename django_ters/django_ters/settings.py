@@ -31,9 +31,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'ters.pythonanywhere.com',
-    'www.ters.pythonanywhere.com',
-    'aosipo14.beget.tech',
+    'ters.gallery',
 ]
 
 
