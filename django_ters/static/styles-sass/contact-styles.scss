@@ -5,13 +5,14 @@ main {
 }
 
 .main-container {
+  $main-container-margin-bottom: $default-side-spacing * 1.5;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: $default-side-spacing * 1.5;
   margin: 0 $default-side-spacing * 3;
   margin-bottom: $default-side-spacing * 1.5;
-  height: calc(100vh - 11rem);
+  height: calc(100vh - $header-height - $main-container-margin-bottom);
 }
 
 .contact-image {
@@ -30,6 +31,7 @@ main {
 .contact-text {
   height: 55vh;
   min-width: fit-content;
+  font-size: $product-title-font-size;
 }
 
 .contact-text > div {
@@ -56,7 +58,7 @@ $contact-elem-margin-bottom: 3rem;
 }
 
 .company-tel {
-  margin-bottom: 3 * $contact-elem-margin-bottom !important;
+  margin-bottom: 8.2rem !important;
 }
 
 .company-open-time .hours {
@@ -66,6 +68,7 @@ $contact-elem-margin-bottom: 3rem;
 .addresses {
   display: flex;
   justify-content: space-around;
+  font-size: $header-footer-font-size;
 
   margin: calc($header-height / 2) 0;
 
@@ -79,9 +82,9 @@ $contact-elem-margin-bottom: 3rem;
     }
 
     .city {
-      font-size: 1.3rem;
+      font-size: $header-footer-h1-size;
       font-weight: 500;
-      margin-bottom: 1rem;
+      margin-bottom: 0.4rem;
     }
 
     .street,
@@ -118,6 +121,7 @@ $contact-elem-margin-bottom: 3rem;
 
   .contact-text {
     height: auto;
+    font-size: $header-footer-h1-size;
   }
 
   .contact-image {

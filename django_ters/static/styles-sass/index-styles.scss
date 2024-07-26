@@ -40,11 +40,18 @@
 .main-collection-info {
   width: 100%;
   height: $header-height;
-  @include center($horizontal: space-between);
+  display: flex;
+  align-items: center;
 
   .left-side {
-    height: 50px;
+    height: fit-content;
   }
+}
+
+.main-collection-info-container {
+  width: 100%;
+  height: fit-content;
+  @include center($horizontal: space-between);
 }
 
 @media screen and (width < 1000px) {
@@ -60,17 +67,18 @@
 .main-collection-info-header {
   font-weight: 600;
   margin-bottom: 3px;
+  font-size: $header-footer-h1-size;
 }
 
 .main-collection-info-description {
   opacity: 70%;
+  font-size: $header-footer-font-size;
 }
 
 .all-products-button {
   @include center;
   font-weight: 400;
   border: #8f8f8f 1px solid;
-  height: 50px;
   background-color: white;
   color: black;
   transition: background-color 0.5s ease, color 0.5s ease, font-weight 0.5s ease;
@@ -81,7 +89,8 @@
   a {
     display: flex;
     align-items: center;
-    padding: 0 15px;
+    padding: 9px 12px;
+    font-size: $header-footer-h1-size;
   }
 }
 
@@ -129,7 +138,7 @@
   margin: 4%;
 
   .name {
-    font-size: clamp(0.9rem, 1.5vw, 1.5rem);
+    font-size: $header-footer-h1-size;
     font-weight: 500;
     text-transform: uppercase;
     @media screen and (max-width: 600px) {
@@ -138,7 +147,7 @@
   }
 
   .categoty {
-    font-size: clamp(0.7rem, 1.5vw, 1rem);
+    font-size: $header-footer-font-size;
     opacity: 80%;
     text-transform: uppercase;
   }
@@ -146,7 +155,7 @@
 
 #product_4 {
   display: flex;
-  height: 15rem;
+  height: 17rem;
 }
 
 #product_8 {

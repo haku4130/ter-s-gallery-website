@@ -13,17 +13,21 @@
   </div>
   <div class="main-content">
     <div class="main-collection-info">
-      <div class="left-side">
-        <div class="main-collection-info-header">КОЛЛЕКЦИЯ</div>
-        <div class="main-collection-info-description">{{ collection.name }}</div>
-      </div>
-      <div class="all-products-button cursor-link">
-        <a href="{% url 'products' %}">ВСЕ ПРОДУКТЫ</a>
+      <div class="main-collection-info-container">
+        <div class="left-side">
+          <div class="main-collection-info-header">КОЛЛЕКЦИЯ</div>
+          <div class="main-collection-info-description">{{ collection.name }}</div>
+        </div>
+        <div class="all-products-button cursor-link">
+          <a href="{% url 'products' %}">ВСЕ ПРОДУКТЫ</a>
+        </div>
       </div>
     </div>
     <div class="gallery">
       {% for product in products %}
-        <a href="{% url 'product_detail' product.id %}" class="gallery-item" id="product_{{ product.id }}">
+        <a href="{% url 'product_detail' product.id %}"
+           class="gallery-item"
+           id="product_{{ product.id }}">
           <img src="{{ product.main_image.image.url }}" alt="{{ product.name }}" />
           <div class="gallery-item-info">
             <div class="name">{{ product.name }}</div>

@@ -37,13 +37,13 @@
 .product-name {
   padding: 0;
   text-transform: uppercase;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 500;
-  line-height: 1.6rem;
+  line-height: 1.3rem;
 }
 
 .product-type {
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   opacity: 0.6;
   text-transform: uppercase;
 }
@@ -51,6 +51,7 @@
 .product-description {
   border-top: $default-line-color 1px solid;
   line-height: 200%;
+  opacity: 0.8;
 }
 
 .product-characteristic-block {

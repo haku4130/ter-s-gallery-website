@@ -28,9 +28,9 @@ function toggleNav() {
 function scrollWithOffset(id) {
     const element = document.getElementById(id);
 
-    let yOffset = -161;
+    let yOffset = -131;
     if (window.innerWidth < 1000) {
-        yOffset = -118.33;
+        yOffset = -121;
     }
 
     const yPosition =
