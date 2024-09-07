@@ -1,0 +1,142 @@
+@import 'variables-mixin';
+
+main {
+  flex-direction: column;
+}
+
+.main-container {
+  $main-container-margin-bottom: $default-side-spacing * 1.5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $default-side-spacing * 1.5;
+  margin: 0 $default-side-spacing * 3;
+  margin-bottom: $default-side-spacing * 1.5;
+  height: calc(100vh - $header-height - $main-container-margin-bottom);
+}
+
+.contact-image {
+  display: flex;
+  flex-grow: 1;
+  height: fit-content;
+  height: 55vh;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 16/ 9;
+  }
+}
+
+.contact-text {
+  height: 55vh;
+  min-width: fit-content;
+  font-size: $product-title-font-size;
+}
+
+.contact-text > div {
+  margin-bottom: 0.5rem;
+}
+
+$contact-elem-margin-bottom: 3rem;
+
+.contact-title {
+  margin-bottom: calc($contact-elem-margin-bottom / 2) !important;
+  line-height: 0.9;
+}
+
+.contact-firstly-font-weight {
+  font-weight: 550;
+}
+
+.contact-secondary-opacity {
+  opacity: 0.8;
+}
+
+.company-address-country {
+  margin-bottom: $contact-elem-margin-bottom !important;
+}
+
+.company-tel {
+  margin-bottom: 8.2rem !important;
+}
+
+.company-open-time .hours {
+  margin-left: 47px;
+}
+
+.addresses {
+  display: flex;
+  justify-content: space-around;
+  font-size: $header-footer-font-size;
+
+  margin: calc($header-height / 2) 0;
+
+  .address {
+    @include center;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    span {
+      text-transform: uppercase;
+    }
+
+    .city {
+      font-size: $header-footer-h1-size;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+
+    .street,
+    .country {
+      opacity: 0.5;
+    }
+
+    .tel-number,
+    .working-hours {
+      opacity: 0.7;
+      font-weight: 500;
+    }
+
+    .working-hours span {
+      margin-right: 10px;
+    }
+  }
+}
+
+@media screen and (width < 1000px) {
+  main {
+    margin-bottom: calc($header-height / 2);
+  }
+
+  .main-container {
+    $mobile-vertical-text-to-img-space: 4rem;
+    margin: 2rem calc($default-side-spacing / 2)
+      $mobile-vertical-text-to-img-space;
+    flex-direction: column-reverse;
+    height: auto;
+    align-items: start;
+    gap: calc($mobile-vertical-text-to-img-space / 1.5);
+  }
+
+  .contact-text {
+    height: auto;
+    font-size: $header-footer-h1-size;
+  }
+
+  .contact-image {
+    height: auto;
+    width: 100%;
+  }
+
+  .company-tel {
+    margin-bottom: $contact-elem-margin-bottom !important;
+  }
+}
+
+@media screen and (width < 800px) {
+  .addresses {
+    flex-direction: column;
+    gap: 3rem;
+  }
+}
