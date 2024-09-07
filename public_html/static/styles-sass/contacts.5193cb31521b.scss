@@ -104,7 +104,7 @@ $contact-elem-margin-bottom: 3rem;
   }
 }
 
-@media screen and (width < 1000px) {
+@media screen and (max-width: 1000px) {
   main {
     margin-bottom: calc($header-height / 2);
   }
@@ -134,7 +134,7 @@ $contact-elem-margin-bottom: 3rem;
   }
 }
 
-@media screen and (width < 800px) {
+@media screen and (max-width: 800px) {
   .addresses {
     flex-direction: column;
     gap: 3rem;

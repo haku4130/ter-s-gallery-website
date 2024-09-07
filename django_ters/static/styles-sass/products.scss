@@ -16,7 +16,7 @@
   border-left: $default-line-color 1px solid;
   position: relative;
   @include center;
-  @media screen and (width >= 1000px) {
+  @media screen and (min-width: 1000px) {
     height: calc($header-height / 3);
   }
 }
@@ -66,7 +66,7 @@
   background-color: white;
   min-width: 100%;
   z-index: 100;
-  @media screen and (width < 1000px) {
+  @media screen and (max-width: 1000px) {
   }
 
   > a {
@@ -81,7 +81,7 @@
 
 .dropdown-content.visible {
   border: 1px solid $default-line-color;
-  @media screen and (width < 1000px) {
+  @media screen and (max-width: 1000px) {
     border-left: none;
     border-right: none;
   }
@@ -123,7 +123,7 @@ input[type='checkbox']:checked::before {
   width: 100%;
   min-height: calc($header-height / 2);
   background-color: #f1f1f1;
-  @media screen and (width < 1000px) {
+  @media screen and (max-width: 1000px) {
     padding: 0 calc($default-side-spacing / 2);
   }
 }
@@ -175,7 +175,7 @@ input[type='checkbox']:checked::before {
   @include center();
   padding: $header-height * 0.5 $default-side-spacing * 3;
   max-width: 100%;
-  @media screen and (width < 1000px) {
+  @media screen and (max-width: 1000px) {
     padding: 2rem calc($default-side-spacing / 2) $header-height * 0.5;
   }
 }
@@ -185,10 +185,10 @@ input[type='checkbox']:checked::before {
   grid-template-columns: 1fr 1fr 1fr;
   gap: $default-side-spacing;
   overflow: hidden;
-  @media screen and (width < 1200px) {
+  @media screen and (max-width: 1200px) {
     grid-template-columns: 1fr 1fr;
   }
-  @media screen and (width < 700px) {
+  @media screen and (max-width: 700px) {
     grid-template-columns: 1fr;
   }
 }
@@ -322,7 +322,7 @@ input[type='checkbox']:checked::before {
 }
 
 // mobile devices filters
-@media screen and (width < 1000px) {
+@media screen and (max-width: 1000px) {
   .filter-icon {
     width: 100%;
   }

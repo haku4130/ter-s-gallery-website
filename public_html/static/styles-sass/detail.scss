@@ -6,7 +6,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: $default-side-spacing * 2;
-  @media screen and (width < 1000px) {
+  @media screen and (max-width: 1000px) {
     margin: 0 calc($default-side-spacing / 2);
     margin-bottom: calc($header-height / 2);
   }
@@ -99,7 +99,7 @@ swiper-slide img {
   object-fit: contain;
 }
 
-@media screen and (width < 1000px) {
+@media screen and (max-width: 1000px) {
   swiper-container {
     display: block;
   }
