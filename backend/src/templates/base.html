@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="{% static 'favicon.ico' %}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description"
+              content="{% block meta_description %}{% endblock %}" />
+        <link rel="stylesheet" href="{% static 'styles/base.css' %}" />
+        {% block stylesheet %}{% endblock %}
+        <title>
+            {% block title %}ter's gallery{% endblock %}
+        </title>
+    </head>
+    <body>
+        {% include 'includes/header.html' %}
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        {% include 'includes/footer.html' %}
+        <script src="{% static 'main.js' %}"></script>
+        {% block scripts %}{% endblock %}
+    </body>
+</html>
