@@ -16,7 +16,13 @@ services:
     build: backend
     restart: always
     # command: uv run gunicorn config.wsgi:application --bind 0.0.0.0:8000 --chdir src
-    command: uv run src/manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "
+        uv run src/manage.py migrate &&
+        uv run src/manage.py collectstatic --noinput &&
+        uv run src/manage.py loaddata src/fixtures.json &&
+        uv run src/manage.py runserver 0.0.0.0:8000
+      "
     volumes:
       - ./backend/src:/app/src
       - ./backend/pyproject.toml:/app/pyproject.toml
