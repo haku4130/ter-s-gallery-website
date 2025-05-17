@@ -6,5 +6,6 @@ COPY pyproject.toml .
 COPY uv.lock .
 
 RUN uv sync --frozen --no-install-project
+RUN mkdir -p /app/src/static
 
 ADD . /app
