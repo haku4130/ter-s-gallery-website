@@ -5,8 +5,9 @@ export default defineNuxtConfig({
     nitro: {
         routeRules: {
             '/api/**': {
-                proxy:
-                    process.env.NUXT_PUBLIC_API_BASE || 'http://backend:8000',
+                proxy: process.env.NUXT_PUBLIC_API_BASE
+                    ? `${process.env.NUXT_PUBLIC_API_BASE}/api/**`
+                    : 'http://backend:8000/api/**',
             },
         },
     },

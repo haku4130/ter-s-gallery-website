@@ -59,16 +59,13 @@
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Pagination } from 'swiper/modules';
 
-// Импорт стилей
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-// Массив модулей
 const modules = [Navigation, Pagination];
 
 const route = useRoute();
-const { public: config } = useRuntimeConfig();
 
 const { data: product, error } = await useFetch(
   `/api/products/${route.params.id}/`

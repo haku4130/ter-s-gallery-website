@@ -27,8 +27,6 @@
 import FilterGroup from '~/components/Filters/FilterGroup.vue';
 import ActiveFilters from '~/components/Filters/ActiveFilters.vue';
 
-const { public: config } = useRuntimeConfig();
-
 const { data: products } = await useFetch('/api/products/');
 
 const categories = computed(() => {

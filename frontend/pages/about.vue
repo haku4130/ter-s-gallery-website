@@ -60,8 +60,6 @@
 </template>
 
 <script setup>
-const config = useRuntimeConfig().public;
-
 const { data: about } = await useFetch('/api/about/');
 
 const { data: materials } = await useFetch('/api/materials');
