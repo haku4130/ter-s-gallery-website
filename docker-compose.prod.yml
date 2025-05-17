@@ -42,10 +42,9 @@ services:
       - backend
 
   nginx:
-    image: nginx:alpine
+    image: haku4130/ters-nginx:latest
     restart: always
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - static_volume:/app/static
       - media_volume:/app/media
     ports:

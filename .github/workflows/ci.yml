@@ -44,3 +44,13 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/ters-backend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/ters-backend:${{ github.sha }}
+
+      - name: Build & push nginx image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./nginx
+          file: ./nginx/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/ters-nginx:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/ters-nginx:${{ github.sha }}

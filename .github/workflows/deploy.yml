@@ -43,6 +43,7 @@ jobs:
             # Перетягиваем свежие теги
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ters-backend:latest
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ters-frontend:latest
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ters-nginx:latest
 
             # Перезапускаем контейнеры через compose
             docker compose down
