@@ -19,7 +19,6 @@ services:
       sh -c "
         uv run src/manage.py migrate &&
         uv run src/manage.py collectstatic --noinput &&
-        uv run src/manage.py loaddata src/fixtures.json &&
         uv run gunicorn config.wsgi:application --bind 0.0.0.0:8000 --chdir src
       "
     volumes:
