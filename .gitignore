@@ -36,7 +36,6 @@ yarn-error.log*
 
 # Docker specific
 *.env
-.dockerignore
 
 # Mypy cache
 .mypy_cache/

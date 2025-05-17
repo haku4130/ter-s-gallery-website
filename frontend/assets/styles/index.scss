@@ -1,0 +1,163 @@
+@use 'variables-mixin' as vars;
+@use 'sass:math';
+
+html,
+body {
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  @media screen and (max-width: 1000px) {
+    overscroll-behavior: auto;
+  }
+}
+
+.main-collection {
+  position: sticky;
+  top: vars.$header-height;
+  left: 0;
+  display: flex;
+  min-width: 100%;
+  height: calc(100vh - vars.$header-height);
+  z-index: -1;
+  overflow: hidden;
+
+  @media screen and (max-width: 1000px) {
+    top: calc(vars.$header-height / 1.5);
+  }
+
+  img {
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+.main-content {
+  min-width: 100%;
+  background-color: white;
+  position: relative;
+  z-index: 1;
+  padding: 0 vars.$default-side-spacing * 3;
+  padding-bottom: calc(vars.$header-height / 2);
+  min-height: 100dvh;
+  @media screen and (max-width: 1000px) {
+    padding: 0 calc(vars.$default-side-spacing / 2);
+    padding-bottom: calc(vars.$header-height / 2);
+  }
+  @media screen and (max-width: 600px) {
+    padding-bottom: 3rem;
+  }
+}
+
+.main-collection-info {
+  width: 100%;
+  height: vars.$header-height;
+  display: flex;
+  align-items: center;
+
+  .left-side {
+    height: fit-content;
+  }
+}
+
+.main-collection-info-container {
+  width: 100%;
+  height: fit-content;
+  @include vars.center($horizontal: space-between);
+}
+
+@media screen and (max-width: 1000px) {
+  .main-collection {
+    height: 50vh;
+  }
+}
+
+.main-collection-info-header {
+  font-weight: 600;
+  margin-bottom: 3px;
+  font-size: vars.$header-footer-h1-size;
+}
+
+.main-collection-info-description {
+  opacity: 70%;
+  font-size: vars.$header-footer-font-size;
+}
+
+.all-products-button {
+  @include vars.center;
+  font-weight: 400;
+  border: #8f8f8f 1px solid;
+  background-color: white;
+  color: black;
+  transition: background-color 0.5s ease, color 0.5s ease, font-weight 0.5s ease;
+  &:hover {
+    background-color: #414141;
+    color: white;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    padding: 9px 12px;
+    font-size: vars.$header-footer-h1-size;
+  }
+}
+
+.gallery {
+  width: 100%;
+  max-width: 100%;
+  columns: 3;
+  column-gap: 20px;
+  @media screen and (max-width: 1200px) {
+    columns: 2;
+  }
+  @media screen and (max-width: 600px) {
+    columns: 1;
+  }
+}
+
+.gallery-item {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  break-inside: avoid;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    scale: 1;
+    transition: scale 0.5s ease-out;
+  }
+
+  &:hover img {
+    scale: 1.1;
+  }
+}
+
+.gallery-item-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  margin: 4%;
+
+  .name {
+    font-size: vars.$header-footer-h1-size;
+    font-weight: 500;
+    text-transform: uppercase;
+    @media screen and (max-width: 600px) {
+      columns: 1;
+    }
+  }
+
+  .category {
+    font-size: vars.$header-footer-font-size;
+    opacity: 80%;
+    text-transform: uppercase;
+  }
+}

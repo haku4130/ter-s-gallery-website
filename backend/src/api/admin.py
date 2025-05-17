@@ -1,42 +1,46 @@
 from django.contrib import admin
 from django.utils.html import format_html
+
 from .models import (
+    AboutPageSettings,
+    Collection,
+    Color,
+    Material,
     Product,
     ProductImage,
-    Material,
-    Color,
-    Collection,
-    AboutPageSettings,
 )
 
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
     extra = 1
-    readonly_fields = ("image_preview",)
+    readonly_fields = ('image_preview',)
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('main_image')
+
     def image_preview(self, obj):
         return obj.image_preview()
 
-    image_preview.short_description = "Основное изображение"
+    image_preview.short_description = 'Основное изображение'
 
     inlines = [ProductImageInline]
-    list_display = ("name", "title", "price", "year_created", "size", "image_preview")
-    list_editable = ("price", "year_created", "size")
-    search_fields = ("name", "title")
-    list_filter = ("year_created", "materials", "colors")
-    filter_horizontal = ("materials", "colors")
+    list_display = ('name', 'title', 'price', 'year_created', 'size', 'image_preview')
+    list_editable = ('price', 'year_created', 'size')
+    search_fields = ('name', 'title')
+    list_filter = ('year_created', 'materials', 'colors')
+    filter_horizontal = ('materials', 'colors')
 
 
 @admin.register(Collection)
 class CollectionAdmin(admin.ModelAdmin):
-    list_display = ("name", "description", "get_main_image", "is_main")
-    list_editable = ("is_main",)
-    search_fields = ("name",)
-    list_filter = ("name", "is_main")
+    list_display = ('name', 'description', 'get_main_image', 'is_main')
+    list_editable = ('is_main',)
+    search_fields = ('name',)
+    list_filter = ('name', 'is_main')
 
     def save_model(self, request, obj, form, change):
         if obj.is_main:
@@ -45,18 +49,16 @@ class CollectionAdmin(admin.ModelAdmin):
 
     def get_main_image(self, obj):
         if obj.main_image:
-            return format_html(
-                '<img src="{}" width="150" height="150" />'.format(obj.main_image.url)
-            )
+            return format_html('<img src="{}" width="150" height="150" />'.format(obj.main_image.url))
         return None
 
-    get_main_image.short_description = "Главное изображение"
+    get_main_image.short_description = 'Главное изображение'
 
     def formfield_for_dbfield(self, db_field, request, **kwargs):
         formfield = super().formfield_for_dbfield(db_field, request, **kwargs)
 
-        if db_field.name == "main_image":
-            obj_id = request.resolver_match.kwargs.get("object_id")
+        if db_field.name == 'main_image':
+            obj_id = request.resolver_match.kwargs.get('object_id')
             if obj_id:
                 try:
                     instance = Collection.objects.get(pk=obj_id)
@@ -72,13 +74,13 @@ class CollectionAdmin(admin.ModelAdmin):
 
 @admin.register(AboutPageSettings)
 class AboutPageSettingsAdmin(admin.ModelAdmin):
-    fields = ("top_image", "bottom_image")
+    fields = ('top_image', 'bottom_image', 'ideology_text', 'materials_text', 'production_text')
 
     def formfield_for_dbfield(self, db_field, request, **kwargs):
         formfield = super().formfield_for_dbfield(db_field, request, **kwargs)
 
-        if db_field.name == "top_image":
-            obj_id = request.resolver_match.kwargs.get("object_id")
+        if db_field.name == 'top_image':
+            obj_id = request.resolver_match.kwargs.get('object_id')
             if obj_id:
                 try:
                     instance = AboutPageSettings.objects.get(pk=obj_id)
@@ -90,8 +92,8 @@ class AboutPageSettingsAdmin(admin.ModelAdmin):
                 except AboutPageSettings.DoesNotExist:
                     pass
 
-        if db_field.name == "bottom_image":
-            obj_id = request.resolver_match.kwargs.get("object_id")
+        if db_field.name == 'bottom_image':
+            obj_id = request.resolver_match.kwargs.get('object_id')
             if obj_id:
                 try:
                     instance = AboutPageSettings.objects.get(pk=obj_id)
@@ -104,6 +106,10 @@ class AboutPageSettingsAdmin(admin.ModelAdmin):
                     pass
 
         return formfield
+
+    def has_add_permission(self, request):
+        # Разрешить добавление только если еще нет ни одной записи
+        return not AboutPageSettings.objects.exists()
 
 
 admin.site.register(Material)

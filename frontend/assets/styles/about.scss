@@ -1,0 +1,150 @@
+@use 'variables-mixin' as vars;
+
+main {
+  flex-direction: column;
+}
+
+.main-container {
+  $main-container-margin-bottom: vars.$default-side-spacing * 1.5;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: vars.$default-side-spacing * 1.5;
+  margin: 0 vars.$default-side-spacing * 3;
+  margin-bottom: $main-container-margin-bottom;
+  height: calc(100vh - vars.$header-height - $main-container-margin-bottom);
+}
+
+.about-image {
+  @include vars.center();
+  flex-grow: 1;
+  height: fit-content;
+  width: 60%;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    max-height: 55vh;
+    aspect-ratio: 16/9;
+  }
+}
+
+.about-text {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: vars.$product-title-font-size;
+}
+
+.about-title {
+  margin-bottom: 5rem;
+  font-size: vars.$product-name-price-font-size;
+}
+
+.about-firstly-font-weight {
+  font-weight: 500;
+}
+
+.about-links {
+  div {
+    margin-bottom: 1rem;
+
+    a {
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    a:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.about-main-content-container {
+  font-size: vars.$product-title-font-size;
+  padding: 0 vars.$default-side-spacing * 3;
+}
+
+.content-text {
+  color: rgb(151, 151, 151);
+  margin: 2rem 0;
+}
+
+.materials-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3rem;
+  margin: 2rem 0;
+}
+
+.material-img,
+.production-img {
+  img {
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 1;
+  }
+}
+
+.production-img {
+  img {
+    max-height: 40vh;
+  }
+}
+
+.material-title {
+  font-size: vars.$product-name-price-font-size;
+  margin-top: 1rem;
+  text-transform: uppercase;
+}
+
+.production-img {
+  margin-bottom: 3rem;
+}
+
+@media screen and (max-width: 1000px) {
+  $links-gap: 8px;
+  .main-container {
+    margin: 4rem calc(vars.$default-side-spacing / 2) 3rem;
+    flex-direction: column;
+    align-items: start;
+    height: auto;
+    gap: calc(3rem - $links-gap);
+  }
+
+  .about-main-content-container {
+    padding: 0 calc(vars.$default-side-spacing / 2);
+  }
+
+  .about-title {
+    margin-bottom: 4rem;
+  }
+
+  .about-text {
+    width: auto;
+  }
+
+  .about-image {
+    width: 100%;
+  }
+
+  .about-links {
+    div {
+      margin-bottom: $links-gap;
+    }
+  }
+
+  .materials-grid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1.5rem;
+    margin: 2rem 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .materials-grid {
+    grid-template-columns: 1fr;
+  }
+}

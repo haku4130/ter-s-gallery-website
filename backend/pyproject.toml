@@ -10,12 +10,14 @@ dependencies = [
     "colorama==0.4.6",
     "cssbeautifier==1.15.1",
     "django>=5.2",
+    "django-ckeditor-5>=0.2.17",
     "django-cors-headers==4.4.0",
-    "django-debug-toolbar==4.4.6",
     "django-rest-framework==0.1.0",
     "djangorestframework==3.15.2",
     "djoser>=2.3.1",
+    "drf-spectacular>=0.28.0",
     "editorconfig==0.12.4",
+    "gunicorn>=23.0.0",
     "html-tag-names==0.1.2",
     "html-void-elements==0.1.0",
     "jsbeautifier==1.15.1",
@@ -32,3 +34,31 @@ dependencies = [
     "tqdm==4.66.4",
     "typing-extensions==4.12.2",
 ]
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+exclude = [".git", ".venv", "migrations", "node_modules", "__pycache__"]
+
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle errors
+    "F", # pyflakes
+    "I", # isort
+    "D", # docstring style (pydocstyle)
+    "B", # flake8-bugbear
+]
+ignore = [
+    "D100", # Missing docstring in public module
+    "D101", # Missing docstring in public class
+    "D102", # Missing docstring in public method
+    "D103", # Missing docstring in public function
+    "D104", # Missing docstring in public package
+    "D106", # Missing docstring in public nested class
+]
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
