@@ -62,13 +62,9 @@
 <script setup>
 const config = useRuntimeConfig().public;
 
-const { data: about } = await useFetch('/api/about/', {
-  baseURL: config.apiBase,
-});
+const { data: about } = await useFetch('/api/about/');
 
-const { data: materials } = await useFetch('/api/materials', {
-  baseURL: config.apiBase,
-});
+const { data: materials } = await useFetch('/api/materials');
 
 function scrollWithOffset(id) {
   const element = document.getElementById(id);

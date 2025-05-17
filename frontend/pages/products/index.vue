@@ -29,9 +29,7 @@ import ActiveFilters from '~/components/Filters/ActiveFilters.vue';
 
 const { public: config } = useRuntimeConfig();
 
-const { data: products } = await useFetch('api/products/', {
-  baseURL: config.apiBase,
-});
+const { data: products } = await useFetch('/api/products/');
 
 const categories = computed(() => {
   const unique = [...new Set(products.value?.map((p) => p.title) || [])];

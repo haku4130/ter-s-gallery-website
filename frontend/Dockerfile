@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-ENV PROD_BASE_API_URL=http://backend:8000
+ENV NUXT_PUBLIC_API_BASE=http://backend:8000
 
 RUN npm ci
 RUN npm run build

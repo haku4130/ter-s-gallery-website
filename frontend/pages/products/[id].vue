@@ -1,25 +1,23 @@
 <template>
   <div class="main-container-wrapper">
     <div class="main-container" v-if="product">
-      <ClientOnly>
-        <Swiper
-          :modules="modules"
-          :loop="true"
-          :navigation="true"
-          :pagination="{ clickable: true }"
-          :slides-per-view="'auto'"
-          :autoHeight="true"
-          class="product-swiper"
+      <Swiper
+        :modules="modules"
+        :loop="true"
+        :navigation="true"
+        :pagination="{ clickable: true }"
+        :slides-per-view="'auto'"
+        :autoHeight="true"
+        class="product-swiper"
+      >
+        <SwiperSlide
+          v-for="image in product.images"
+          :key="image.id"
+          class="swiper-slide"
         >
-          <SwiperSlide
-            v-for="image in product.images"
-            :key="image.id"
-            class="swiper-slide"
-          >
-            <NuxtImg :src="image.image" :alt="product.name" />
-          </SwiperSlide>
-        </Swiper>
-      </ClientOnly>
+          <NuxtImg :src="image.image" :alt="product.name" />
+        </SwiperSlide>
+      </Swiper>
 
       <div class="product-gallery">
         <NuxtImg
@@ -73,10 +71,7 @@ const route = useRoute();
 const { public: config } = useRuntimeConfig();
 
 const { data: product, error } = await useFetch(
-  `api/products/${route.params.id}/`,
-  {
-    baseURL: config.apiBase,
-  }
+  `/api/products/${route.params.id}/`
 );
 
 const formatPrice = (value) => {
