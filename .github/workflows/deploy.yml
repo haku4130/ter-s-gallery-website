@@ -24,7 +24,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_SSH_PASSWORD }}
           source: 'docker-compose.prod.yml'
-          target: '/home/deploy/ters/docker-compose.yml'
+          target: '/home/deploy/ters/'
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.7
@@ -37,6 +37,8 @@ jobs:
           script: |
             # Заходим в папку с compose-файлом
             cd /home/deploy/ters
+
+            mv docker-compose.prod.yml docker-compose.yml
 
             # Перетягиваем свежие теги
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ters-backend:latest
