@@ -30,6 +30,7 @@ body {
     object-fit: cover;
     position: absolute;
     bottom: 0;
+    min-height: -webkit-fill-available;
   }
 }
 
