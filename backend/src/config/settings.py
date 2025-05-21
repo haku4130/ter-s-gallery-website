@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -93,6 +93,8 @@ CORS_ALLOW_METHODS = (
     'GET',
     'OPTIONS',
 )
+
+CSRF_TRUSTED_ORIGINS = ['https://ters.gallery']
 
 INTERNAL_IPS = [
     '127.0.0.1',
