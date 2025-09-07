@@ -11,7 +11,7 @@
               to="/products"
               :class="{ 'nav-link-active': isActive('products') }"
             >
-              ПРОДУКТЫ
+              ПРЕДМЕТЫ
             </NuxtLink>
           </li>
           <li>

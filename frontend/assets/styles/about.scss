@@ -18,15 +18,15 @@ main {
 
 .about-image {
   @include vars.center();
+  justify-content: end;
   flex-grow: 1;
   height: fit-content;
   width: 60%;
 
   img {
-    width: 100%;
+    width: 95%;
     object-fit: cover;
-    max-height: 55vh;
-    aspect-ratio: 16/9;
+    aspect-ratio: 16/11;
   }
 }
 
@@ -90,7 +90,7 @@ main {
 
 .production-img {
   img {
-    max-height: 40vh;
+    max-height: 51vh;
   }
 }
 

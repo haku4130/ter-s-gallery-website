@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
     <div class="contact-image">
-      <NuxtImg src="/contact.webp" alt="Contact img" />
+      <NuxtImg src="/contact.jpg" alt="Contact img" />
     </div>
 
     <div class="contact-text">
