@@ -13,7 +13,7 @@
           </div>
         </div>
         <div class="all-products-button cursor-link">
-          <NuxtLink to="/products">ВСЕ ПРОДУКТЫ</NuxtLink>
+          <NuxtLink to="/products">ВСЕ ПРЕДМЕТЫ</NuxtLink>
         </div>
       </div>
     </div>

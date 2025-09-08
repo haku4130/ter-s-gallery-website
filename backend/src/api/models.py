@@ -70,6 +70,7 @@ class Product(models.Model):
     year_created = models.PositiveIntegerField()
     size = models.CharField(max_length=100)
     materials = models.ManyToManyField('Material', related_name='products')
+    detailed_materials = models.TextField(blank=True, help_text='Подробное описание материалов')
     colors = models.ManyToManyField('Color', related_name='products')
     collection = models.ForeignKey(
         'Collection',
@@ -77,6 +78,7 @@ class Product(models.Model):
         on_delete=models.CASCADE,
         default=Collection.get_default_pk,
     )
+    order = models.IntegerField(default=0, blank=False, null=False)
 
     def __str__(self):
         return self.name
@@ -93,6 +95,7 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
+        ordering = ['order']
 
 
 class ProductImage(models.Model):

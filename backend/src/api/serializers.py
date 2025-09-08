@@ -60,9 +60,11 @@ class ProductSerializer(serializers.ModelSerializer):
             'year_created',
             'size',
             'materials',
+            'detailed_materials',
             'colors',
             'collection',
             'images',
+            'order',
         ]
 
 

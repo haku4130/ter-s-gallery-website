@@ -36,7 +36,11 @@
         <div class="product-characteristic-block">
           <span class="title">МАТЕРИАЛЫ</span>
           <span class="product-characteristic">
-            {{ product.materials.map((m) => m.name).join(', ') }}
+            {{
+              product.detailed_materials
+                ? product.detailed_materials
+                : product.materials.map((m) => m.name).join(', ')
+            }}
           </span>
         </div>
         <div class="product-characteristic-block">

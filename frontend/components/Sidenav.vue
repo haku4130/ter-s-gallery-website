@@ -10,7 +10,7 @@
       :class="{ 'nav-link-active': isActive('products') }"
       @click="closeNav"
     >
-      ПРОДУКТЫ
+      ПРЕДМЕТЫ
     </NuxtLink>
     <NuxtLink
       to="/about"
