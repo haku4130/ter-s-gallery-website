@@ -1,0 +1,26 @@
+{
+	servers {
+		protocols h1 h2
+	}
+	# :443 belongs to xray (Reality); it forwards non-VPN TLS for these names here.
+	https_port 9443
+	auto_https disable_redirects
+}
+
+ters.gallery:9443 {
+	bind 127.0.0.1
+	encode gzip
+	reverse_proxy 127.0.0.1:8001
+	header -Server
+}
+
+www.ters.gallery:9443 {
+	bind 127.0.0.1
+	redir https://ters.gallery{uri} permanent
+	header -Server
+}
+
+# ACME HTTP-01 is answered on :80 automatically.
+http://ters.gallery, http://www.ters.gallery {
+	redir https://ters.gallery{uri} permanent
+}

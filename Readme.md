@@ -61,11 +61,59 @@ Two chained workflows:
    cross-platform builds) builds the frontend, backend and nginx images and
    pushes each to Docker Hub tagged both `latest` and the commit SHA, so any
    deploy can be traced back to its commit.
-2. **Deploy** — triggered by `workflow_run` only when the build succeeded. Copies
-   the production compose file to the server over SCP and restarts the stack
-   over SSH.
+2. **Deploy** — triggered by `workflow_run` only when the build succeeded. SSHes
+   to the server as `deploy`, whose key can only run `deploy/deploy.sh`: pull the
+   new backend, frontend and nginx images, `up -d`, wait until the site answers,
+   and put the previous images back if it doesn't. The server's compose file and
+   `.env` are left as they are.
 
-All hosts and credentials come from GitHub Secrets.
+All hosts and credentials come from GitHub Secrets: `SERVER_HOST`,
+`SERVER_SSH_PORT`, `SERVER_USER`, `SERVER_SSH_KEY`, `SERVER_KNOWN_HOSTS`.
+
+## Production server
+
+`/opt/ters` holds `docker-compose.yml` (a copy is `docker-compose.prod.yml`),
+`Caddyfile` (copy in `deploy/`) and `.env`. Port 443 belongs to another TLS
+service on the same host, which hands plain HTTPS for ters.gallery to Caddy on
+`127.0.0.1:9443`; Caddy also takes port 80 for the redirect and the ACME
+HTTP-01 challenge, so certificates renew on their own. nginx listens on
+`127.0.0.1:8001` only. Change the compose file on the server and in the repo
+together, since deploys don't copy it.
+
+Installed from `deploy/`:
+
+```bash
+install -m 755 deploy/backup.sh /usr/local/bin/ters-backup
+install -m 755 deploy/deploy.sh /usr/local/bin/ters-deploy
+cp deploy/ters-backup.service deploy/ters-backup.timer /etc/systemd/system/
+systemctl daemon-reload && systemctl enable --now ters-backup.timer
+```
+
+The `deploy` user has no shell access of its own: its `authorized_keys` entry is
+`restrict,command="sudo -n /usr/local/bin/ters-deploy"`, and sudoers allows it
+exactly that command.
+
+## Backups
+
+`ters-backup.timer` runs every night: one tar in `/opt/ters/backups` (mode 700)
+with `db.dump` (`pg_dump --format=custom`), `media.tar` (the media volume) and
+`config/` (`.env`, `Caddyfile`, compose file). Each dump is restored into a
+scratch database and its row counts compared with the live ones, and the media
+files are counted against the volume, before backups beyond the newest 7 are
+pruned. Run it by hand with `systemctl start ters-backup`; the result is in
+`journalctl -u ters-backup`. The backups live on the same disk as the site.
+
+Restore, from `/opt/ters` (on a new server first put `config/*` there and start
+only the database: `docker compose up -d db`). Extract `media.tar` with GNU tar
+only — macOS tar silently drops the `._*` files it contains.
+
+```bash
+mkdir -p /tmp/ters-restore && tar -C /tmp/ters-restore -xf backups/ters-<stamp>.tar
+docker compose stop backend frontend nginx
+docker compose exec -T db sh -c 'pg_restore -U "$POSTGRES_USER" -d "$POSTGRES_DB" --clean --if-exists --no-owner --exit-on-error' < /tmp/ters-restore/db.dump
+docker compose run --rm --no-deps -T backend sh -c 'rm -rf /app/src/media/* && tar -C /app/src/media -xf -' < /tmp/ters-restore/media.tar
+docker compose up -d
+```
 
 ## Local development
 

@@ -1,3 +1,7 @@
+# Production: /opt/ters/docker-compose.yml on the server, next to .env and Caddyfile (deploy/Caddyfile).
+# Deploys don't copy this file: change it on the server and here together.
+# Images from Docker Hub. Caddy (host network) serves TLS on 127.0.0.1:9443 only,
+# as the Reality dest of the xray inbound on :443 (selfsteal); :80 is public for ACME and the redirect.
 services:
   db:
     image: postgres:14
@@ -9,8 +13,8 @@ services:
       retries: 5
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    env_file:
-      - .env
+    env_file: .env
+    mem_limit: 512m
 
   backend:
     image: haku4130/ters-backend:latest
@@ -24,21 +28,21 @@ services:
     volumes:
       - static_volume:/app/src/collected_static
       - media_volume:/app/src/media
-    env_file:
-      - .env
+    env_file: .env
     depends_on:
       db:
         condition: service_healthy
+    mem_limit: 512m
 
   frontend:
     image: haku4130/ters-frontend:latest
     restart: always
-    env_file:
-      - .env
+    env_file: .env
     environment:
       - NUXT_PUBLIC_API_BASE=${NUXT_PUBLIC_API_BASE}
     depends_on:
       - backend
+    mem_limit: 512m
 
   nginx:
     image: haku4130/ters-nginx:latest
@@ -47,12 +51,25 @@ services:
       - static_volume:/app/static
       - media_volume:/app/media
     ports:
-      - "8001:80"
+      - "127.0.0.1:8001:80"
     depends_on:
       - backend
       - frontend
+    mem_limit: 128m
+
+  caddy:
+    image: caddy:2
+    restart: always
+    network_mode: host
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    mem_limit: 128m
 
 volumes:
   postgres_data:
   static_volume:
   media_volume:
+  caddy_data:
+  caddy_config:

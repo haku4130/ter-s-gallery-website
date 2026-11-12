@@ -1,50 +1,37 @@
 name: Deploy to Production
 
-# Запускаем после успешного CI
+# Runs after a successful image build on master
 on:
   workflow_run:
     workflows: ['Build & Push Docker Images']
+    branches: [master]
     types:
       - completed
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
 
 jobs:
   deploy:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Copy production compose to server
-        uses: appleboy/scp-action@v0.1.2
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          port: ${{ secrets.SERVER_SSH_PORT }}
-          username: ${{ secrets.SERVER_USER }}
-          password: ${{ secrets.SERVER_SSH_PASSWORD }}
-          source: 'docker-compose.prod.yml'
-          target: '/home/deploy/ters/'
-
+      # The key may only run the deploy script on the server (pull + up -d of backend, frontend, nginx);
+      # the compose file and .env there are not touched.
       - name: Deploy via SSH
-        uses: appleboy/ssh-action@v0.1.7
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          port: ${{ secrets.SERVER_SSH_PORT }}
-          username: ${{ secrets.SERVER_USER }}
-          password: ${{ secrets.SERVER_SSH_PASSWORD }}
-
-          script: |
-            # Заходим в папку с compose-файлом
-            cd /home/deploy/ters
-
-            mv docker-compose.prod.yml docker-compose.yml
-
-            # Перетягиваем свежие теги
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ters-backend:latest
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ters-frontend:latest
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ters-nginx:latest
-
-            # Перезапускаем контейнеры через compose
-            docker compose down
-            docker compose up -d --remove-orphans
+        env:
+          SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.SERVER_KNOWN_HOSTS }}
+          HOST: ${{ secrets.SERVER_HOST }}
+          PORT: ${{ secrets.SERVER_SSH_PORT }}
+          USER: ${{ secrets.SERVER_USER }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh -i ~/.ssh/deploy_key -p "${PORT:-22}" -o BatchMode=yes -o StrictHostKeyChecking=yes \
+            -o ConnectTimeout=20 "$USER@$HOST"

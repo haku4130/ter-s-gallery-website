@@ -1,0 +1,11 @@
+[Unit]
+Description=Back up the ters.gallery database, media and config and check that the dump restores
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/ters-backup
+Nice=10
+IOSchedulingClass=idle
+TimeoutStartSec=15min
